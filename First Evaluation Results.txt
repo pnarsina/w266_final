@@ -1,0 +1,52 @@
+Per-relation statistics:
+org:alternate_names                  P:  75.59%  R:  75.59%  F1:  75.59%  #: 213
+org:city_of_headquarters             P:  74.47%  R:  42.68%  F1:  54.26%  #: 82
+org:country_of_headquarters          P:  72.09%  R:  28.70%  F1:  41.06%  #: 108
+org:dissolved                        P: 100.00%  R:   0.00%  F1:   0.00%  #: 2
+org:founded                          P:  74.07%  R:  54.05%  F1:  62.50%  #: 37
+org:founded_by                       P:  55.56%  R:   7.35%  F1:  12.99%  #: 68
+org:member_of                        P: 100.00%  R:   0.00%  F1:   0.00%  #: 18
+org:members                          P:   0.00%  R:   0.00%  F1:   0.00%  #: 31
+org:number_of_employees/members      P: 100.00%  R:   5.26%  F1:  10.00%  #: 19
+org:parents                          P:  55.56%  R:   8.06%  F1:  14.08%  #: 62
+org:political/religious_affiliation  P:  18.92%  R:  70.00%  F1:  29.79%  #: 10
+org:shareholders                     P: 100.00%  R:  15.38%  F1:  26.67%  #: 13
+org:stateorprovince_of_headquarters  P:  58.82%  R:  58.82%  F1:  58.82%  #: 51
+org:subsidiaries                     P:  60.00%  R:  20.45%  F1:  30.51%  #: 44
+org:top_members/employees            P:  61.85%  R:  82.95%  F1:  70.86%  #: 346
+org:website                          P:  58.14%  R:  96.15%  F1:  72.46%  #: 26
+per:age                              P:  92.22%  R:  83.00%  F1:  87.37%  #: 200
+per:alternate_names                  P: 100.00%  R:   0.00%  F1:   0.00%  #: 11
+per:cause_of_death                   P:  51.61%  R:  30.77%  F1:  38.55%  #: 52
+per:charges                          P:  63.08%  R:  79.61%  F1:  70.39%  #: 103
+per:children                         P:   0.00%  R:   0.00%  F1:   0.00%  #: 37
+per:cities_of_residence              P:  65.14%  R:  37.57%  F1:  47.65%  #: 189
+per:city_of_birth                    P:  33.33%  R:  20.00%  F1:  25.00%  #: 5
+per:city_of_death                    P:  40.00%  R:   7.14%  F1:  12.12%  #: 28
+per:countries_of_residence           P:  48.25%  R:  46.62%  F1:  47.42%  #: 148
+per:country_of_birth                 P: 100.00%  R:   0.00%  F1:   0.00%  #: 5
+per:country_of_death                 P: 100.00%  R:   0.00%  F1:   0.00%  #: 9
+per:date_of_birth                    P:  40.00%  R:  66.67%  F1:  50.00%  #: 9
+per:date_of_death                    P:  42.86%  R:   5.56%  F1:   9.84%  #: 54
+per:employee_of                      P:  64.52%  R:  60.61%  F1:  62.50%  #: 264
+per:origin                           P:  64.00%  R:  48.48%  F1:  55.17%  #: 132
+per:other_family                     P: 100.00%  R:   0.00%  F1:   0.00%  #: 60
+per:parents                          P:  28.00%  R:   7.95%  F1:  12.39%  #: 88
+per:religion                         P:  41.67%  R:  63.83%  F1:  50.42%  #: 47
+per:schools_attended                 P:  56.25%  R:  30.00%  F1:  39.13%  #: 30
+per:siblings                         P: 100.00%  R:   0.00%  F1:   0.00%  #: 55
+per:spouse                           P:  16.67%  R:  28.79%  F1:  21.11%  #: 66
+per:stateorprovince_of_birth         P:  60.00%  R:  37.50%  F1:  46.15%  #: 8
+per:stateorprovince_of_death         P: 100.00%  R:   0.00%  F1:   0.00%  #: 14
+per:stateorprovinces_of_residence    P:  53.06%  R:  64.20%  F1:  58.10%  #: 81
+per:title                            P:  80.15%  R:  83.20%  F1:  81.65%  #: 500
+
+Final Score:
+Precision (micro): 64.140%
+   Recall (micro): 53.955%
+       F1 (micro): 58.608%
+Directory saved_models/out do not exist; creating...
+Prediction scores saved to saved_models/out/test1.pkl.
+Evaluation ended.
+
+(base) C:\prabhu\edu\code\w266\tacred>
