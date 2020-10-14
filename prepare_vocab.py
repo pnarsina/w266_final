@@ -5,27 +5,28 @@ import numpy as np
 from collections import Counter
 
 from utils import vocab, constant, helper
+import config
 
-def prepare_voabulary (data_dir, glove_dir, vocab_dir, vocab_dim, glove_text_file, vocab_file, embed_file, lower, min_freq): 
+def prepare_voabulary (vocab_params): 
     
     # input files
-    train_file = data_dir + '/train.json'
-    dev_file = data_dir + '/dev.json'
-    test_file = data_dir + '/test.json'
-    wv_file = glove_dir + '/' + glove_text_file
-    wv_dim = vocab_dim
+    train_file = vocab_params.data_dir + '/train.json'
+    dev_file = vocab_params.data_dir + '/dev.json'
+    test_file = vocab_params.data_dir + '/test.json'
+    wv_file = vocab_params.glove_dir + '/' + vocab_params.glove_text_file
+    wv_dim = vocab_params.emb_dim
 
     # output files
-    helper.ensure_dir(vocab_dir)
-    vocab_file = vocab_dir + vocab_file
-    emb_file = vocab_dir + embed_file
+    helper.ensure_dir(vocab_params.vocab_dir)
+    vocab_file = vocab_params.vocab_dir + vocab_params.vocab_file
+    emb_file = vocab_params.vocab_dir + vocab_params.embed_file
 
     # load files
     print("loading files...")
     train_tokens = load_tokens(train_file)
     dev_tokens = load_tokens(dev_file)
     test_tokens = load_tokens(test_file)
-    if lower:
+    if vocab_params.lower:
         train_tokens, dev_tokens, test_tokens = [[t.lower() for t in tokens] for tokens in\
                 (train_tokens, dev_tokens, test_tokens)]
 
@@ -35,7 +36,7 @@ def prepare_voabulary (data_dir, glove_dir, vocab_dir, vocab_dim, glove_text_fil
     print("{} words loaded from glove.".format(len(glove_vocab)))
     
     print("building vocab...")
-    v = build_vocab(train_tokens, glove_vocab, min_freq)
+    v = build_vocab(train_tokens, glove_vocab, vocab_params.min_freq)
 
     print("calculating oov...")
     datasets = {'train': train_tokens, 'dev': dev_tokens, 'test': test_tokens}
@@ -52,6 +53,7 @@ def prepare_voabulary (data_dir, glove_dir, vocab_dir, vocab_dim, glove_text_fil
         pickle.dump(v, outfile)
     np.save(emb_file, embedding)
     print("all done.")
+    return(vocab)
 
 def load_tokens(filename):
     with open(filename) as infile:
