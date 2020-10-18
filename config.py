@@ -67,7 +67,7 @@ class TrainingParameters:
 
 class EvalParameters:
     def __init__(self):
-        self.model_dir = "./save_models/00"
+        self.model_dir = "save_models/00"
         self.model = "best.model.pt"
         self.dataset = "test"
         self.out = ""

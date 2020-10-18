@@ -24,11 +24,13 @@ def evaluate_model(evalparams):
     random.seed(1234)
     if evalparams.cpu:
         evalparams.cuda = False
-    elif evalparams.cuda:
-        torch.cuda.manual_seed(evalparams.seed)
-
+    elif evalparams.cud:
+        torch.cuda.manual_seed(args.seed)
+        
     # load opt
-    model_file = evalparams.model_dir + '/' + evalparams.model
+    print(evalparams.model_dir, evalparams.model)
+#     model_file = evalparams.model_dir + "/" + evalparams.model
+    model_file = 'best_model.pt'
     print("Loading model from {}".format(model_file))
     opt = torch_utils.load_config(model_file)
     model = RelationModel(opt)
