@@ -68,3 +68,4 @@ def evaluate_model(evalparams):
     print("Evaluation ended.")
 
 
+    return(batch.gold(), predictions)
