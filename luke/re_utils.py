@@ -164,4 +164,4 @@ def convert_examples_to_features(examples, label_list, tokenizer, max_mention_le
             )
         )
 
-    return features
+    return features, tokens
