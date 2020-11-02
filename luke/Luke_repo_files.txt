@@ -1,0 +1,28 @@
+### Available files:
+
+#### Pretrained data model is available here: luke_20200528.tar. 
+The pretrained model was done usign Roberta large.  
+1. Model folder 
+    - **Token files** used to tokenize and prepare the raw text as tokens (which is one of the embedding inputs in luke): added_tokens.json (currently empty), special_tokens_map.json ("< / s>", "< s >", "< mask >", etc.), tokenizer_config.json (identical to special_tokens_map.json, with added max_len element).   
+    - Entity_vocab.tsv is a **count of entities** in descending order.   
+    - **Metadata.json: contains pretraining model details**. This contains a lot of information about the pretraining model.     
+    - vocab.json: Wikipedia vocabulary.  
+    - A variety of pikle files which seem to come from english wikipedia. These were perhaps the raw datasets used to generate the vocab.json file and token files above. 
+    - luke.bin : TBD, but could contain binary files related to the pretraining model, the optimizer file, the scheduler file, etc. (see metadata.json).    
+2. Configuration files  
+    - 3 poetry.lock files, which are supposedly used to recreate the environment used to replicate the results from the Luke paper. 
+    - pyproject.toml, which contains dependency information?
+    - pytest.ini: used for test files? 
+3. Test folder: apparently sued for performing some tests
+    - test_model.py: I wonder if this file is used from passing the BERT waits for pre-training.
+    - test_optimization.py: seems to be testing Adam as the optimizer. 
+    - fixtures/enwiki_20181220_entvocab_100.tsv: A subset of the original wikipedia corpus, with the first 100 most common entities. 
+    - fixtures/wikidata_20180423_sitelinks10: Contains site links.
+    - utils/test_entity_vocab.py: testing the entity vocab file.
+    - utils/test_interwiki_db.py: testing international (non-english) files. 
+    - utils/test_sentence_tokenizer.py: test tokenization of english and non-english components, including emoticons. 
+4. Examples folder
+    - relation_classification/main.py: main file to run with data loading, running the model and evaluation
+    - relation_classification/model.py: LukeForRelationClassification function
+    - relation_classification/ultils.py: dataset processor   
+    
