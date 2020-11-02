@@ -89,6 +89,12 @@ class RelationModel(object):
             print("Cannot load model from {}".format(filename))
             exit()
         self.model.load_state_dict(checkpoint['model'])
+        from torch.utils.tensorboard import SummaryWriter
+
+        # # default `log_dir` is "runs" - we'll be more specific here
+        writer = SummaryWriter('runs/tacred_yuhaozhang')
+        writer.add_graph(self.model)        
+
         self.opt = checkpoint['config']
 
 class PositionAwareRNN(nn.Module):

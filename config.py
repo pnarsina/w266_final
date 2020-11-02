@@ -62,7 +62,7 @@ class TrainingParameters:
         self.seed = 1234
         self.cuda = torch.cuda.is_available()
         self.cpu_action = 'store_true'
-        self.cpu = True
+        self.cpu = False
         
 
 class EvalParameters:
