@@ -10,11 +10,12 @@ from transformers.modeling_bert import (
     BertEmbeddings,
     BertEncoder,
     BertIntermediate,
-    BertLayerNorm,
+#     BertLayerNorm,
     BertOutput,
     BertPooler,
     BertSelfOutput,
 )
+from torch.nn import LayerNorm as BertLayerNorm
 from transformers.modeling_roberta import RobertaEmbeddings
 
 logger = logging.getLogger(__name__)
