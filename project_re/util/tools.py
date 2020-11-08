@@ -4,9 +4,15 @@ import csv
 import os
 import sys
 import logging
+import json
 
 logger = logging.getLogger()
 csv.field_size_limit(2147483647) # Increase CSV reader's field limit incase we have long text.
+
+CONFIG_FOLDER = 'config/'
+id_label_file = 'id_2_label.json'
+lable_2_id_file = 'label2_2_id.json'
+train_file = 'data/tacred/data/json/train.json'
 
 
 class InputExample(object):
