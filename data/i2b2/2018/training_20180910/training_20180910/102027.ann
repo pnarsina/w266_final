@@ -408,16 +408,16 @@ T247	Drug 9350 9360	carvedilol
 T248	Drug 9362 9372	lisinopril
 T249	Drug 9374 9402	dextromethorphan-guaifenesin
 T250	Drug 9438 9448	gabapentin
-T251	ADE 995 1002	"wheezy
+T251	ADE 995 1002	wheezy
 R172	ADE-Drug Arg1:T251 Arg2:T1
 T78	Frequency 4568 4573	daily
-R43	Frequency-Drug Arg1:T78 Arg2:T39	
-R173	Reason-Drug Arg1:T68 Arg2:T70	
-R174	Reason-Drug Arg1:T68 Arg2:T72	
-R175	Reason-Drug Arg1:T68 Arg2:T72	
+R43	Frequency-Drug Arg1:T78 Arg2:T39
+R173	Reason-Drug Arg1:T68 Arg2:T70
+R174	Reason-Drug Arg1:T68 Arg2:T72
+R175	Reason-Drug Arg1:T68 Arg2:T72
 T8	Route 1212 1213	.
-R5	Route-Drug Arg1:T8 Arg2:T5	
+R5	Route-Drug Arg1:T8 Arg2:T5
 T22	Route 3892 3894	IV
-R11	Route-Drug Arg1:T22 Arg2:T25	
+R11	Route-Drug Arg1:T22 Arg2:T25
 T24	Route 4441 4443	IV
-R12	Route-Drug Arg1:T24 Arg2:T34	
+R12	Route-Drug Arg1:T24 Arg2:T34

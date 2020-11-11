@@ -12,7 +12,7 @@ R5	Route-Drug Arg1:T6 Arg2:T1
 T7	Frequency 10153 10172	every six (6) hours
 R6	Frequency-Drug Arg1:T7 Arg2:T1
 T8	Drug 10204 10223	Ipratropium Bromide
-T9	Strength 10224 10228	0.02 
+T9	Strength 10224 10228	0.02
 R7	Strength-Drug Arg1:T9 Arg2:T8
 T10	Form 10231 10239	Solution
 R8	Form-Drug Arg1:T10 Arg2:T8
@@ -336,13 +336,13 @@ T193	Route 9925 9927	PO
 R153	Route-Drug Arg1:T193 Arg2:T188
 T194	Reason 9965 9973	diarrhea
 R154	Reason-Drug Arg1:T194 Arg2:T188
-R155	Reason-Drug Arg1:T19 Arg2:T22	
-R156	Reason-Drug Arg1:T47 Arg2:T44	
-R33	ADE-Drug Arg1:T48 Arg2:T490	
-R157	Dosage-Drug Arg1:T168 Arg2:T165	
+R155	Reason-Drug Arg1:T19 Arg2:T22
+R156	Reason-Drug Arg1:T47 Arg2:T44
+R33	ADE-Drug Arg1:T48 Arg2:T490
+R157	Dosage-Drug Arg1:T168 Arg2:T165
 T31	Route 7088 7090	IV
-R22	Route-Drug Arg1:T31 Arg2:T43	
+R22	Route-Drug Arg1:T31 Arg2:T43
 T42	Frequency 8987 9006;9008 9017	every six (6) hours as needed
-R30	Frequency-Drug Arg1:T42 Arg2:T115	
+R30	Frequency-Drug Arg1:T42 Arg2:T115
 T99	Reason 7702 7704	PE
-R74	Reason-Drug Arg1:T99 Arg2:T53	
+R74	Reason-Drug Arg1:T99 Arg2:T53

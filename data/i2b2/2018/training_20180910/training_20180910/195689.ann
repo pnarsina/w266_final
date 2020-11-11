@@ -176,30 +176,30 @@ T133	Reason 9517 9520;9521 9524	his BPH
 T134	Drug 9754 9763	Potassium
 T135	Drug 9802 9812	kayexalate
 T136	Drug 9814 9821	insulin
-R16	Dosage-Drug Arg1:T41 Arg2:T39	
-R17	Form-Drug Arg1:T42 Arg2:T39	
-R18	Route-Drug Arg1:T43 Arg2:T39	
-R64	Strength-Drug Arg1:T108 Arg2:T110	
-R65	Reason-Drug Arg1:T116 Arg2:T115	
+R16	Dosage-Drug Arg1:T41 Arg2:T39
+R17	Form-Drug Arg1:T42 Arg2:T39
+R18	Route-Drug Arg1:T43 Arg2:T39
+R64	Strength-Drug Arg1:T108 Arg2:T110
+R65	Reason-Drug Arg1:T116 Arg2:T115
 T40	Drug 9084 9090	NSAIDs
-R66	Reason-Drug Arg1:T133 Arg2:T132	
+R66	Reason-Drug Arg1:T133 Arg2:T132
 T44	Frequency 12176 12181	Daily
-R63	Frequency-Drug Arg1:T44 Arg2:T39	
+R63	Frequency-Drug Arg1:T44 Arg2:T39
 T58	Frequency 12215 12220	DAILY
-R67	Frequency-Drug Arg1:T58 Arg2:T45	
+R67	Frequency-Drug Arg1:T58 Arg2:T45
 T105	Frequency 12272 12277	DAILY
-R68	Frequency-Drug Arg1:T105 Arg2:T52	
+R68	Frequency-Drug Arg1:T105 Arg2:T52
 T109	Frequency 12325 12330	DAILY
-R69	Frequency-Drug Arg1:T109 Arg2:T55	
+R69	Frequency-Drug Arg1:T109 Arg2:T55
 T117	Frequency 12364 12369	DAILY
-R70	Frequency-Drug Arg1:T117 Arg2:T59	
+R70	Frequency-Drug Arg1:T117 Arg2:T59
 T118	Frequency 12391 12396	DAILY
-R71	Frequency-Drug Arg1:T118 Arg2:T62	
+R71	Frequency-Drug Arg1:T118 Arg2:T62
 T119	Frequency 12434 12439	DAILY
-R72	Frequency-Drug Arg1:T119 Arg2:T65	
+R72	Frequency-Drug Arg1:T119 Arg2:T65
 T120	Frequency 12464 12466	HS
-R73	Frequency-Drug Arg1:T120 Arg2:T68	
+R73	Frequency-Drug Arg1:T120 Arg2:T68
 T121	Frequency 12514 12521	bedtime
-R74	Frequency-Drug Arg1:T121 Arg2:T71	
+R74	Frequency-Drug Arg1:T121 Arg2:T71
 T122	Reason 12590 12594	pain
-R75	Reason-Drug Arg1:T122 Arg2:T76		
+R75	Reason-Drug Arg1:T122 Arg2:T76	

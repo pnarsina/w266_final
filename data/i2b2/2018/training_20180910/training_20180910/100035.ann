@@ -350,7 +350,7 @@ R198	Frequency-Drug Arg1:T250 Arg2:T239
 T251	Frequency 15990 16004	24 hour period
 R199	Frequency-Drug Arg1:T251 Arg2:T239
 T252	Drug 16010 16029	ipratropium bromide
-T253	Strength 16030 16034	0.02 
+T253	Strength 16030 16034	0.02
 R200	Strength-Drug Arg1:T253 Arg2:T252
 T254	Form 16037 16045	Solution
 R201	Form-Drug Arg1:T254 Arg2:T252
@@ -484,32 +484,32 @@ T359	Drug 9568 9578	Topiramate
 T360	Drug 9751 9758	topamax
 T344	Drug 739 742	CTX
 T361	Strength 10559 10563	75mg
-R2	Dosage-Drug Arg1:T210 Arg2:T203	
+R2	Dosage-Drug Arg1:T210 Arg2:T203
 T15	Form 16140 16148	Solution
-R13	Form-Drug Arg1:T15 Arg2:T262	
-R14	Dosage-Drug Arg1:T333 Arg2:T329		
+R13	Form-Drug Arg1:T15 Arg2:T262
+R14	Dosage-Drug Arg1:T333 Arg2:T329
 T31	Frequency 16770 16784	(2 times a day
-R88	Frequency-Drug Arg1:T31 Arg2:T318	
+R88	Frequency-Drug Arg1:T31 Arg2:T318
 T122	Frequency 15164 15176;15177 15184	BID (2 times a day).
-R91	Frequency-Drug Arg1:T122 Arg2:T155	
+R91	Frequency-Drug Arg1:T122 Arg2:T155
 T124	Frequency 15314 15328;15329 15333	BID (2 times a day)
-R100	Frequency-Drug Arg1:T124 Arg2:T173	
+R100	Frequency-Drug Arg1:T124 Arg2:T173
 T127	Frequency 15626 15645	BID (2 times a day)
-R104	Frequency-Drug Arg1:T127 Arg2:T203	
+R104	Frequency-Drug Arg1:T127 Arg2:T203
 T25	Frequency 14964 14978;14979 14993	BID (2 times a day) as needed
-R21	Frequency-Drug Arg1:T25 Arg2:T133	
+R21	Frequency-Drug Arg1:T25 Arg2:T133
 T136	Frequency 16404 16416;16417 16423	BID (2 times a day)
-R86	Frequency-Drug Arg1:T136 Arg2:T290	
-R110	Reason-Drug Arg1:T352 Arg2:T354	
-R117	Strength-Drug Arg1:T361 Arg2:T6	
-R106	Form-Drug Arg1:T212 Arg2:T203	
-R121	Reason-Drug Arg1:T236 Arg2:T226	
-R125	Reason-Drug Arg1:T238 Arg2:T226	
-R126	Strength-Drug Arg1:T2 Arg2:T239	
+R86	Frequency-Drug Arg1:T136 Arg2:T290
+R110	Reason-Drug Arg1:T352 Arg2:T354
+R117	Strength-Drug Arg1:T361 Arg2:T6
+R106	Form-Drug Arg1:T212 Arg2:T203
+R121	Reason-Drug Arg1:T236 Arg2:T226
+R125	Reason-Drug Arg1:T238 Arg2:T226
+R126	Strength-Drug Arg1:T2 Arg2:T239
 T2	Strength 15849 15866	5 %(700 mg/patch)
 T4	Route 10234 10236	IV
-R3	Route-Drug Arg1:T4 Arg2:T3	
+R3	Route-Drug Arg1:T4 Arg2:T3
 T22	Route 11088 11090	IV
-R16	Route-Drug Arg1:T22 Arg2:T23	
+R16	Route-Drug Arg1:T22 Arg2:T23
 T56	Route 12837 12839	IV
-R39	Route-Drug Arg1:T56 Arg2:T57	
+R39	Route-Drug Arg1:T56 Arg2:T57

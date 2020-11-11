@@ -92,7 +92,7 @@ T91	Strength 7550 7554	5 mg
 T92	Drug 4854 4863	Glipizide
 T93	Drug 4728 4740	Voriconazole
 T94	Strength 8071 8077	200 mg
-T95	Form 8098 8104	Tablet	
+T95	Form 8098 8104	Tablet
 T97	Route 8105 8107	PO
 T98	Drug 8058 8069;8069 8070	Voriconazol e
 T99	Drug 9853 9863	Ranitidine
@@ -350,34 +350,34 @@ R125	Dosage-Drug Arg1:T238 Arg2:T215
 T242	Drug 1345 1348	D10
 R127	Reason-Drug Arg1:T197 Arg2:T242
 T96	Frequency 8108 8119;8120 8129	Q12H (every 12 hours)
-R126	Route-Drug Arg1:T196 Arg2:T242	
-R128	Dosage-Drug Arg1:T240 Arg2:T103	
-R129	Reason-Drug Arg1:T217 Arg2:T7	
-R130	Strength-Drug Arg1:T198 Arg2:T7	
+R126	Route-Drug Arg1:T196 Arg2:T242
+R128	Dosage-Drug Arg1:T240 Arg2:T103
+R129	Reason-Drug Arg1:T217 Arg2:T7
+R130	Strength-Drug Arg1:T198 Arg2:T7
 T106	ADE 3664 3675	hyoglycemia
-R131	ADE-Drug Arg1:T106 Arg2:T33	
-R132	ADE-Drug Arg1:T201 Arg2:T69	
-R133	ADE-Drug Arg1:T218 Arg2:T69	
-R134	Reason-Drug Arg1:T219 Arg2:T200	
-R135	Reason-Drug Arg1:T202 Arg2:T70	
-R136	ADE-Drug Arg1:T220 Arg2:T88	
-R137	ADE-Drug Arg1:T233 Arg2:T88	
-R138	Reason-Drug Arg1:T234 Arg2:T77	
-R139	Reason-Drug Arg1:T222 Arg2:T77	
-R140	Reason-Drug Arg1:T205 Arg2:T77	
-R141	Reason-Drug Arg1:T204 Arg2:T77	
-R142	ADE-Drug Arg1:T117 Arg2:T19	
-R143	ADE-Drug Arg1:T235 Arg2:T19	
-R144	ADE-Drug Arg1:T208 Arg2:T19	
-R145	ADE-Drug Arg1:T223 Arg2:T8	
-R146	Frequency-Drug Arg1:T213 Arg2:T160	
-R147	Reason-Drug Arg1:T229 Arg2:T16	
-R148	Reason-Drug Arg1:T230 Arg2:T16	
-R149	ADE-Drug Arg1:T237 Arg2:T71	
+R131	ADE-Drug Arg1:T106 Arg2:T33
+R132	ADE-Drug Arg1:T201 Arg2:T69
+R133	ADE-Drug Arg1:T218 Arg2:T69
+R134	Reason-Drug Arg1:T219 Arg2:T200
+R135	Reason-Drug Arg1:T202 Arg2:T70
+R136	ADE-Drug Arg1:T220 Arg2:T88
+R137	ADE-Drug Arg1:T233 Arg2:T88
+R138	Reason-Drug Arg1:T234 Arg2:T77
+R139	Reason-Drug Arg1:T222 Arg2:T77
+R140	Reason-Drug Arg1:T205 Arg2:T77
+R141	Reason-Drug Arg1:T204 Arg2:T77
+R142	ADE-Drug Arg1:T117 Arg2:T19
+R143	ADE-Drug Arg1:T235 Arg2:T19
+R144	ADE-Drug Arg1:T208 Arg2:T19
+R145	ADE-Drug Arg1:T223 Arg2:T8
+R146	Frequency-Drug Arg1:T213 Arg2:T160
+R147	Reason-Drug Arg1:T229 Arg2:T16
+R148	Reason-Drug Arg1:T230 Arg2:T16
+R149	ADE-Drug Arg1:T237 Arg2:T71
 T111	Route 5084 5086	IV
-R38	Route-Drug Arg1:T111 Arg2:T83	
+R38	Route-Drug Arg1:T111 Arg2:T83
 T115	Route 5561 5563	IV
-R42	Route-Drug Arg1:T115 Arg2:T49	
+R42	Route-Drug Arg1:T115 Arg2:T49
 T199	Reason 6809 6813	Afib
-R150	Reason-Drug Arg1:T199 Arg2:T89	
-R151	Reason-Drug Arg1:T199 Arg2:T100	
+R150	Reason-Drug Arg1:T199 Arg2:T89
+R151	Reason-Drug Arg1:T199 Arg2:T100

@@ -166,12 +166,12 @@ R72	Strength-Drug Arg1:T114 Arg2:T110
 T115	Frequency 9693 9701	at night
 R73	Frequency-Drug Arg1:T115 Arg2:T110
 T15	Frequency 3920 3923	day
-R7	Frequency-Drug Arg1:T15 Arg2:T14	
+R7	Frequency-Drug Arg1:T15 Arg2:T14
 T16	Strength 3902 3906	40mg
 T18	Frequency 3907 3910	day
-R8	Strength-Drug Arg1:T16 Arg2:T14	
-R10	Frequency-Drug Arg1:T18 Arg2:T14	
+R8	Strength-Drug Arg1:T16 Arg2:T14
+R10	Frequency-Drug Arg1:T18 Arg2:T14
 T1	Route 2653 2655	IV
-R1	Route-Drug Arg1:T1 Arg2:T2	
+R1	Route-Drug Arg1:T1 Arg2:T2
 T3	Route 2672 2674	IV
 R2	Route-Drug Arg1:T3 Arg2:T4	
