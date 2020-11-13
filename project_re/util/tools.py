@@ -79,20 +79,25 @@ class MultiClassificationProcessor(DataProcessor):
 
     def get_labels(self):
         """See base class."""
-        return ['no_relation' , 'org:subsidiaries' , 'org:city_of_headquarters' , 'per:title',
-             'per:origin' , 'per:employee_of' , 'org:top_members/employees',
-             'org:alternate_names' , 'org:shareholders' , 'org:country_of_headquarters',
-             'per:countries_of_residence' , 'per:date_of_death',
-             'per:cities_of_residence' , 'per:city_of_death' , 'per:age' , 'org:founded_by',
-             'org:parents' , 'org:member_of' , 'per:stateorprovinces_of_residence',
-             'per:religion' , 'org:founded' , 'org:stateorprovince_of_headquarters',
-             'per:alternate_names' , 'per:siblings' , 'per:charges',
-             'org:number_of_employees/members' , 'per:stateorprovince_of_death',
-             'org:members' , 'per:cause_of_death' , 'per:parents' , 'per:other_family',
-             'per:schools_attended' , 'per:children' , 'per:spouse' , 'per:country_of_birth',
-             'org:political/religious_affiliation' , 'per:country_of_death',
-             'per:date_of_birth' , 'per:city_of_birth' , 'org:website' , 'org:dissolved',
-             'per:stateorprovince_of_birth']
+        
+        return ['Reason-Drug', 'Route-Drug', 'Strength-Drug', 'Frequency-Drug',
+       'Duration-Drug', 'Form-Drug', 'Dosage-Drug', 'ADE-Drug',
+       'no relation']
+
+#         return ['no_relation' , 'org:subsidiaries' , 'org:city_of_headquarters' , 'per:title',
+#              'per:origin' , 'per:employee_of' , 'org:top_members/employees',
+#              'org:alternate_names' , 'org:shareholders' , 'org:country_of_headquarters',
+#              'per:countries_of_residence' , 'per:date_of_death',
+#              'per:cities_of_residence' , 'per:city_of_death' , 'per:age' , 'org:founded_by',
+#              'org:parents' , 'org:member_of' , 'per:stateorprovinces_of_residence',
+#              'per:religion' , 'org:founded' , 'org:stateorprovince_of_headquarters',
+#              'per:alternate_names' , 'per:siblings' , 'per:charges',
+#              'org:number_of_employees/members' , 'per:stateorprovince_of_death',
+#              'org:members' , 'per:cause_of_death' , 'per:parents' , 'per:other_family',
+#              'per:schools_attended' , 'per:children' , 'per:spouse' , 'per:country_of_birth',
+#              'org:political/religious_affiliation' , 'per:country_of_death',
+#              'per:date_of_birth' , 'per:city_of_birth' , 'org:website' , 'org:dissolved',
+#              'per:stateorprovince_of_birth']
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
