@@ -74,7 +74,7 @@ def calculate_stats(labels, preds):
     df_results = pd.DataFrame(all_rels, columns = ['labels', 'predicted'])
     
     
-    f1_score = metrics.f1_score(df_results["labels"], df_results["predicted"], average='micro')
+    f1_score = metrics.f1_score(df_results["labels"], df_results["predicted"], average='macro')
     
     df_results["matched"] = df_results["labels"] == df_results["predicted"]
     label_matches_df = df_results.groupby(["labels", "matched"]).count()
