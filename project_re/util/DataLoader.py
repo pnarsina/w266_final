@@ -134,7 +134,7 @@ class DataProcessor(object):
         if not os.path.exists(report_dir):
             os.makedirs(report_dir)
             report_dir += f'/report_{len(os.listdir(report_dir))}'
-            os.makedirs(output_dir)
+            os.makedirs(report_dir)
 
         output_dir = config.programsettings.OUTPUT_DIR
         if not os.path.exists(output_dir):
