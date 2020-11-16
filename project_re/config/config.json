@@ -24,6 +24,6 @@
 	  "CACHE_DIR" : "cache/", 
 	  "WEIGHTS_NAME" :  "pytorch_model.bin",
 	  "MODEL_NAME": "BioBERT_fc" ,
-	  "DEBUG_PRINT" : 1
+	  "DEBUG_PRINT" : 0
 	  }	
 }
