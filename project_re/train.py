@@ -68,8 +68,10 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
                 optimizer.step()
                 optimizer.zero_grad()
                 global_step += 1
-        if config.programsettings.DEBUG_PRINT == 1:
-            print('\n Accuumulated for ephoch, loss: ', running_loss, ' , corrects:', running_corrects, ' size: ', data_len)
+                
+            if config.programsettings.DEBUG_PRINT == 1:
+                print('\n Accuumulated for ephoch, loss: ', running_loss, ' , corrects:', running_corrects, ' size: ', data_len)
+
         epoch_acc = np.double(running_corrects)/ (data_len)
     
         if config.programsettings.DEBUG_PRINT == 1:
@@ -81,9 +83,9 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
             best_acc = epoch_acc
             best_model_wts = copy.deepcopy(model.state_dict())
             
-    if config.programsettings.DEBUG_PRINT == 1:
-        print('Training complete')
-        print('Best val Acc: {:4f}'.format(best_acc))
+#     if config.programsettings.DEBUG_PRINT == 1:
+    print('Training complete')
+    print('Best val Acc: {:4f}'.format(best_acc))
 
     model.load_state_dict(best_model_wts)
     savemodel(model_name,model_save_path, model )
