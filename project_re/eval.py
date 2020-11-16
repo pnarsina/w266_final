@@ -24,6 +24,7 @@ def eval_model(model, eval_dataloader, device,num_labels):
     eval_loss = 0
     nb_eval_steps = 0
     preds = []
+    labels = []
 
     for input_ids, input_mask, segment_ids, label_ids in tqdm_notebook(eval_dataloader, desc="Evaluating"):
         input_ids = input_ids.to(device)
@@ -43,25 +44,33 @@ def eval_model(model, eval_dataloader, device,num_labels):
         nb_eval_steps += 1
         if len(preds) == 0:
             preds.append(logits.detach().cpu().numpy())
+            labels.append(label_ids.detach().cpu().numpy())
         else:
             preds[0] = np.append(
                 preds[0], logits.detach().cpu().numpy(), axis=0)
+            labels[0] = np.append(
+                labels[0], label_ids.detach().cpu().numpy(), axis=0)
 
     eval_loss = eval_loss / nb_eval_steps
     preds = preds[0]
+    labels = labels[0]
     preds = np.argmax(preds, axis=1)
-    return(preds, eval_loss)
+    return(preds, labels, eval_loss)
 
 def calculate_stats(labels, preds):
 
     
     CONFIG_FOLDER = 'config/'
     id_label_file = 'id_2_label.json'
+    
+    print('\n label:', labels)
+    print('\n preds:', preds)
+    
     with open(CONFIG_FOLDER + id_label_file) as infile:
         id2label = json.load(infile)    
         
     preds_labels = [id2label[str(p)] for p in preds]
-    all_labels =  [id2label[str(l)] for l in labels.numpy()]
+    all_labels =  [id2label[str(l)] for l in labels]
     mcc = matthews_corrcoef(all_labels, preds_labels)
     
     mismatches = []
