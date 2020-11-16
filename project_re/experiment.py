@@ -57,6 +57,6 @@ def run_model(config, device):
 #   Prepare dev dataset
     dev_dataloader, dev_data_len, dev_num_labels, dev_num_train_optimization_steps, all_dev_label_ids = dataprocessor.get_data_loader(config,source='dev')    
 #   Run the trained model on dev data    
-    dev_preds, dev_loss = eval_model( model, train_dataloader, device, num_labels)    
+    dev_preds, dev_loss = eval_model( model, dev_dataloader, device, num_labels)    
     
     return all_label_ids, train_preds, train_loss, all_dev_label_ids, dev_loss, dev_preds
