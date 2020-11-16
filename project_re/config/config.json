@@ -1,9 +1,9 @@
 {
 "hyperparams":
-	{"NUM_BERT_LAYERS_FREEZE": -1 , 
+	{"NUM_BERT_LAYERS_FREEZE": 8 , 
 	 "MAX_SEQ_LENGTH": "128" ,
 	  "optimizer" : "AdamW",  
-	  "TRAIN_BATCH_SIZE" : 24, 
+	  "TRAIN_BATCH_SIZE" : 12, 
 	  "EVAL_BATCH_SIZE" : 8, 
 	  "LEARNING_RATE" : 1e-5, 
 	  "NUM_TRAIN_EPOCHS" : 10, 
@@ -15,8 +15,7 @@
 	  "NUM_WORKERS" : 4
 	},
 "programsettings":
-	{"DATA_DIR": "data/"  ,
-	 "MAX_SEQ_LENGTH": 128, 
+	{"DATA_DIR": "data_divided/"  ,
 	  "BERT_MODEL" : "bert-base-cased",  
 	  "TASK_NAME" : "re", 
 	  "OUTPUT_DIR" : "outputs/re/", 

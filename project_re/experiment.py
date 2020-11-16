@@ -36,10 +36,10 @@ def run_model(config, device):
     if config.hyperparams.NUM_BERT_LAYERS_FREEZE >= 0:
         count = 0 
         for child in model.children():
-            count+=1
-            if count < config.hyperparams.NUM_BERT_LAYERS_FREEZE:
+            if count > 0 and count < config.hyperparams.NUM_BERT_LAYERS_FREEZE:
                 for param in child.parameters():
                     param.requires_grad = False
+            count+=1
                     
 # set the optimizer
     optimizer     = optim.AdamW(model.parameters(), lr=config.hyperparams.LEARNING_RATE)
