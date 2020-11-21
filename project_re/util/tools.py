@@ -4,6 +4,7 @@ import sys
 import logging
 import json
 import config
+from json import JSONEncoder
 
 logger = logging.getLogger()
 
@@ -15,6 +16,15 @@ class config(object):
             else:
                setattr(self, a, config(b) if isinstance(b, dict) else b)
 
+            
+class configEncoder(JSONEncoder):
+
+    def default(self, object):
+        if isinstance(object, config):
+            return object.__dict__
+        else:
+            return json.JSONEncoder.default(self, object)
+        
 def load_config(config_folder):
             
     with open(os.path.join(config_folder, "config.json")) as f:
