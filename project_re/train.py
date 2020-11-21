@@ -39,10 +39,10 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
             input_ids, input_mask, segment_ids, label_ids = batch
 
             logits = model(input_ids, segment_ids, input_mask)
-            
-            loss_fct = CrossEntropyLoss()
+            weights = [0.0530, 0.0469, 0.0415, 0.0430, 0.4402, 0.0607, 0.0636, 0.2443, 0.0068]
+            class_weights = torch.FloatTensor(weights).cuda()
+            loss_fct = CrossEntropyLoss(weight=class_weights, reduction='mean')
             loss = loss_fct(logits.view(-1, num_labels), label_ids.view(-1))
-
             preds = torch.argmax(logits, axis=1)
             if config.programsettings.DEBUG_PRINT == 1:
                 print('\n predicted:', preds,  '\n true: ', label_ids.view(-1) )
