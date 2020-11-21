@@ -38,14 +38,11 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
             batch = tuple(t.to(device) for t in batch)
             input_ids, input_mask, segment_ids, label_ids = batch
 
-    #         logits = model(input_ids, segment_ids, input_mask, labels=None)
             logits = model(input_ids, segment_ids, input_mask)
             
             loss_fct = CrossEntropyLoss()
-#             loss_fct = KLDivLoss(reduction = 'batchmean')
-#             print('predict vs label', logits.view(-1, num_labels),label_ids.view(-1) )
             loss = loss_fct(logits.view(-1, num_labels), label_ids.view(-1))
-#             preds = torch.argmax(logits.detach().cpu().numpy(), axis=1)
+
             preds = torch.argmax(logits, axis=1)
             if config.programsettings.DEBUG_PRINT == 1:
                 print('\n predicted:', preds,  '\n true: ', label_ids.view(-1) )

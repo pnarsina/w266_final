@@ -25,13 +25,15 @@ def eval_model(model, eval_dataloader, device,num_labels):
     nb_eval_steps = 0
     preds = []
     labels = []
-
+    inputs=[]
+    
     for input_ids, input_mask, segment_ids, label_ids in tqdm_notebook(eval_dataloader, desc="Evaluating"):
         input_ids = input_ids.to(device)
         input_mask = input_mask.to(device)
         segment_ids = segment_ids.to(device)
         label_ids = label_ids.to(device)
-
+        
+        
         with torch.no_grad():
             logits = model(input_ids, segment_ids, input_mask)
 
@@ -45,17 +47,22 @@ def eval_model(model, eval_dataloader, device,num_labels):
         if len(preds) == 0:
             preds.append(logits.detach().cpu().numpy())
             labels.append(label_ids.detach().cpu().numpy())
+            inputs.append(input_ids.detach().cpu().numpy())
         else:
             preds[0] = np.append(
                 preds[0], logits.detach().cpu().numpy(), axis=0)
             labels[0] = np.append(
                 labels[0], label_ids.detach().cpu().numpy(), axis=0)
+            inputs[0] = np.append(
+                inputs[0], input_ids.detach().cpu().numpy(), axis=0)
 
     eval_loss = eval_loss / nb_eval_steps
     preds = preds[0]
     labels = labels[0]
+    inputs = inputs[0]
+    
     preds = np.argmax(preds, axis=1)
-    return(preds, labels, eval_loss)
+    return(inputs, preds, labels, eval_loss)
 
 def calculate_stats(labels, preds):
 
