@@ -119,6 +119,10 @@ class DataProcessor(object):
         """Gets a collection of `InputExample`s for the dev set."""
         raise NotImplementedError()
 
+    def get_test_examples(self, data_dir):
+        """Gets a collection of `InputExample`s for the dev set."""
+        
+        raise NotImplementedError()
     def get_labels(self):
         """Gets the list of labels for this data set."""
         raise NotImplementedError()
@@ -164,6 +168,11 @@ class MultiClassificationProcessor(DataProcessor):
         """See base class."""
         return self._create_examples(
             self._read_tsv(os.path.join(data_dir, "dev.tsv")), "dev")
+
+    def get_test_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(
+            self._read_tsv(os.path.join(data_dir, "test.tsv")), "test")
 
     def get_labels(self):
         """See base class."""
@@ -213,6 +222,8 @@ class MultiClassificationProcessor(DataProcessor):
             data = self.get_train_examples(config.programsettings.DATA_DIR)
         elif source == "dev":
             data = self.get_dev_examples(config.programsettings.DATA_DIR)
+        elif source == "test":
+            data = self.get_test_examples(config.programsettings.DATA_DIR)
 
         data_len = len(data)
 
@@ -225,6 +236,8 @@ class MultiClassificationProcessor(DataProcessor):
             feature_pickle_file = config.programsettings.DATA_DIR + "train_features.pkl"
         elif source == "dev":
             feature_pickle_file = config.programsettings.DATA_DIR + "dev_features.pkl"
+        elif source == "test":
+            feature_pickle_file = config.programsettings.DATA_DIR + "test_features.pkl"
             
         if not os.path.exists(feature_pickle_file):
 
