@@ -41,9 +41,8 @@ def run_save_results(config,device,all_experiment_results):
     
 
 
-def run_all_experiments_save():
-#     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    device = "cpu"
+def run_all_experiments_save(device):
+
 
     config_folder = "config/"
     config = load_config(config_folder)
@@ -53,10 +52,20 @@ def run_all_experiments_save():
     
     run_save_results (config, device, all_experiment_results)
 
+#   Try with different LR 
     config.hyperparams.LEARNING_RATE = 0.75e-5
     run_save_results (config, device, all_experiment_results)
 
     config.hyperparams.LEARNING_RATE = 1.25e-5
+    run_save_results (config, device, all_experiment_results)
+
+    
+#   Try with Sequence length of 256
+    config.hyperparams.MAX_SEQ_LENGTH = "256"
+    run_save_results (config, device, all_experiment_results)
+
+#   Try with Batchsize of 24
+    config.hyperparams.TRAIN_BATCH_SIZE = 24
     run_save_results (config, device, all_experiment_results)
     
 #   reset to defaults
