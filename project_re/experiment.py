@@ -54,11 +54,11 @@ def run_model(config, device):
                         model_name = config.programsettings.MODEL_NAME , num_epochs=config.hyperparams.NUM_TRAIN_EPOCHS)
     
 # Evaluate training data
-    train_inputs, train_preds, train_labels, train_loss = eval_model( model, train_dataloader, device, num_labels)
+    train_inputs, train_preds, train_labels, train_loss = eval_model( config, model, train_dataloader, device, num_labels)
 
 #   Prepare dev dataset
     dev_dataloader, dev_data_len, dev_num_labels, dev_num_train_optimization_steps, all_dev_label_ids = dataprocessor.get_data_loader(config,source='dev')    
 #   Run the trained model on dev data    
-    dev_inputs, dev_preds, dev_labels, dev_loss = eval_model( model, dev_dataloader, device, num_labels)    
+    dev_inputs, dev_preds, dev_labels, dev_loss = eval_model( config, model, dev_dataloader, device, num_labels)    
     
     return train_inputs, train_labels, train_preds, train_loss, dev_inputs, dev_labels, dev_loss, dev_preds

@@ -19,7 +19,7 @@ import torch.optim as optim
 from sklearn.metrics import matthews_corrcoef, confusion_matrix
 
 
-def eval_model(model, eval_dataloader, device,num_labels):
+def eval_model(config, model, eval_dataloader, device,num_labels):
     model.eval()
     eval_loss = 0
     nb_eval_steps = 0

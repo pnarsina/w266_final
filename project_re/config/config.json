@@ -1,7 +1,7 @@
 {
 "hyperparams":
 	{"NUM_BERT_LAYERS_FREEZE": 8 , 
-	 "MAX_SEQ_LENGTH": "256" ,
+	 "MAX_SEQ_LENGTH": 256 ,
 	  "optimizer" : "AdamW",  
 	  "TRAIN_BATCH_SIZE" : 24, 
 	  "EVAL_BATCH_SIZE" : 8, 

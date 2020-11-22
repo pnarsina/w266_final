@@ -61,7 +61,7 @@ def run_all_experiments_save(device):
 
     
 # #   Try with Sequence length of 256
-#     config.hyperparams.MAX_SEQ_LENGTH = "256"
+#     config.hyperparams.MAX_SEQ_LENGTH = 256
 #     run_save_results (config, device, all_experiment_results)
 
 # #   Try with Batchsize of 24
