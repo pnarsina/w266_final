@@ -5,6 +5,8 @@ import torch
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
                               TensorDataset)
 from torch.nn import CrossEntropyLoss, MSELoss
+from torch import Tensor
+
 from model.MedClinical import Biobert_fc 
 from tqdm import tqdm_notebook, trange
 import os
@@ -15,6 +17,7 @@ from transformers.optimization import AdamW
 from torch.optim import lr_scheduler
 import torch.optim as optim
 from datetime import datetime
+
 
 def train_model(config, model,optimizer, scheduler, train_dataloader,  num_labels , data_len, device='cpu', model_save_path = "outputs", 
                 model_name = 'BioBert_fc',      num_epochs=25, GRADIENT_ACCUMULATION_STEPS = 1 ):
@@ -40,7 +43,12 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
 
             logits = model(input_ids, segment_ids, input_mask)
             
-            loss_fct = CrossEntropyLoss()
+#             loss_fct = CrossEntropyLoss()
+
+            weights = torch.Tensor(config.hyperparams.LOSS_FN_CLASS_WEIGHTS)
+            class_weights = torch.FloatTensor(weights)
+            loss_fct = CrossEntropyLoss(weight=class_weights)
+
             loss = loss_fct(logits.view(-1, num_labels), label_ids.view(-1))
 
             preds = torch.argmax(logits, axis=1)

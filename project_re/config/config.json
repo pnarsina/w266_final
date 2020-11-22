@@ -3,7 +3,7 @@
 	{"NUM_BERT_LAYERS_FREEZE": 8 , 
 	 "MAX_SEQ_LENGTH": "128" ,
 	  "optimizer" : "AdamW",  
-	  "TRAIN_BATCH_SIZE" : 12, 
+	  "TRAIN_BATCH_SIZE" : 24, 
 	  "EVAL_BATCH_SIZE" : 8, 
 	  "LEARNING_RATE" : 1e-5, 
 	  "NUM_TRAIN_EPOCHS" : 10, 
@@ -12,7 +12,8 @@
 	  "SCHEDULER_STEP_SIZE" : 1,
 	  "GRADIENT_ACCUMULATION_STEPS" : 1,
 	  "PIN_MEMORY" : "True",
-	  "NUM_WORKERS" : 4
+	  "NUM_WORKERS" : 4,
+	  "LOSS_FN_CLASS_WEIGHTS": [1.0,1.0,1.0,1.0,1.0,1.0,1.0,2.0,1.0 ]
 	},
 "programsettings":
 	{"DATA_DIR": "data_divided/"  ,
