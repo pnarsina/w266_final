@@ -243,7 +243,7 @@ class MultiClassificationProcessor(DataProcessor):
 
             tokenizer = BertTokenizer.from_pretrained('bert-base-cased', do_lower_case=False)
 
-            examples_for_processing = [(example,  int(config.hyperparams.MAX_SEQ_LENGTH), tokenizer) for example in data]
+            examples_for_processing = [(example,  config.hyperparams.MAX_SEQ_LENGTH, tokenizer) for example in data]
 
             process_count = cpu_count() - 1
             

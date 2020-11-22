@@ -38,7 +38,7 @@ def eval_model(model, eval_dataloader, device,num_labels):
             logits = model(input_ids, segment_ids, input_mask)
 
         # create eval loss and other metric required by the task
-        weights = [0.0530, 0.0469, 0.0415, 0.0430, 0.4402, 0.0607, 0.0636, 0.2443, 0.0068]
+        weights = torch.Tensor(config.hyperparams.LOSS_FN_CLASS_WEIGHTS)
         class_weights = torch.FloatTensor(weights).cuda()
         loss_fct = CrossEntropyLoss(weight=class_weights, reduction='mean')
         tmp_eval_loss = loss_fct(logits.view(-1, num_labels), label_ids.view(-1))

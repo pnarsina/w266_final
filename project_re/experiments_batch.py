@@ -53,24 +53,28 @@ def run_all_experiments_save(device):
     run_save_results (config, device, all_experiment_results)
 
 #   Try with different LR 
-    config.hyperparams.LEARNING_RATE = 0.75e-5
-    run_save_results (config, device, all_experiment_results)
+#     config.hyperparams.LEARNING_RATE = 0.75e-5
+#     run_save_results (config, device, all_experiment_results)
 
-    config.hyperparams.LEARNING_RATE = 1.25e-5
-    run_save_results (config, device, all_experiment_results)
+#     config.hyperparams.LEARNING_RATE = 1.25e-5
+#     run_save_results (config, device, all_experiment_results)
 
     
-#   Try with Sequence length of 256
-    config.hyperparams.MAX_SEQ_LENGTH = "256"
-    run_save_results (config, device, all_experiment_results)
+# #   Try with Sequence length of 256
+#     config.hyperparams.MAX_SEQ_LENGTH = "256"
+#     run_save_results (config, device, all_experiment_results)
 
-#   Try with Batchsize of 24
-    config.hyperparams.TRAIN_BATCH_SIZE = 24
+# #   Try with Batchsize of 24
+#     config.hyperparams.TRAIN_BATCH_SIZE = 24
+#     run_save_results (config, device, all_experiment_results)
+    
+# #   reset to defaults
+#     config = load_config(config_folder)
+    
+
+#Second iteration of running with weights
+    config.hyperparams.LOSS_FN_CLASS_WEIGHTS = [0.0530, 0.0469, 0.0415, 0.0430, 0.4402, 0.0607, 0.0636, 0.2443, 0.0068]
     run_save_results (config, device, all_experiment_results)
-    
-#   reset to defaults
-    config = load_config(config_folder)
-    
     
 #   Save all the results to the file for later analysis
     
