@@ -3,7 +3,7 @@ import pickle, copy, json
 
 from torch.nn import CrossEntropyLoss, MSELoss, KLDivLoss
 import importlib
-from model.MedClinical import Biobert_fc 
+from model.MedClinical import Biobert_fc, Biobert_cnn_fc 
 from train import *
 from eval import eval_model, calculate_stats
 
@@ -29,6 +29,8 @@ def run_model(config, device):
 #   set to right Model Name
     if config.programsettings.MODEL_NAME == "BioBERT_fc":
         model = Biobert_fc()
+    if config.programsettings.MODEL_NAME == "BioBERT_CNN_fc":
+        model = Biobert_cnn_fc()
     elif config.programsettings.MODEL_NAME == "BERT_Sequence":
         model = BertForSequenceClassification.from_pretrained(config.programsettings.BERT_MODEL, cache_dir=config.programsettings.CACHE_DIR, num_labels=num_labels)
 
