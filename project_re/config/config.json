@@ -23,7 +23,18 @@
 	  "REPORTS_DIR" : "reports/re/", 
 	  "CACHE_DIR" : "cache/", 
 	  "WEIGHTS_NAME" :  "pytorch_model.bin",
-	  "MODEL_NAME": "BioBERT_fc" ,
+	  "MODEL_NAME": "BioBERT_CNN_fc" ,
 	  "DEBUG_PRINT" : 0
+	  },	
+"modelconfig":
+	{"BERT_FEATURES": 768  ,
+	  "LAYER1_FEATURES" : 256,  
+	  "LBAEL_CLASSES" : 9, 
+	  "KERNEL_1" : 8, 
+	  "KERNEL_2" : 10, 
+	  "KERNEL_3" :  12,
+	  "STRIDE": 2 ,
+	  "OUT_SIZE" : 768
 	  }	
+
 }
