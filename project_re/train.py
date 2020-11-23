@@ -49,8 +49,8 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
 
 
             weights = torch.Tensor(config.hyperparams.LOSS_FN_CLASS_WEIGHTS)
-#             class_weights = torch.FloatTensor(weights).cuda()
-            class_weights = torch.FloatTensor(weights)
+            class_weights = torch.FloatTensor(weights).cuda()
+#             class_weights = torch.FloatTensor(weights)
             loss_fct = CrossEntropyLoss(weight=class_weights, reduction='mean')
 
             loss = loss_fct(logits.view(-1, num_labels), label_ids.view(-1))
