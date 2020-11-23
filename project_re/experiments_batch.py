@@ -73,9 +73,11 @@ def run_all_experiments_save(device):
     
 
 #Second iteration of running with weights
-    config.hyperparams.LOSS_FN_CLASS_WEIGHTS = [0.0530, 0.0469, 0.0415, 0.0430, 0.4402, 0.0607, 0.0636, 0.2443, 0.0068]
-    run_save_results (config, device, all_experiment_results)
-    
+#     config.hyperparams.LOSS_FN_CLASS_WEIGHTS = [0.0530, 0.0469, 0.0415, 0.0430, 0.4402, 0.0607, 0.0636, 0.2443, 0.0068]
+#     run_save_results (config, device, all_experiment_results)
+
+# Third run with CNN
+
 #   Save all the results to the file for later analysis
     
     all_model_results_pickle_file = config.programsettings.REPORTS_DIR + "multi_model_experiment_results_" + str(datetime.now()).replace(":", "_").replace(".", "_") + ".pkl"
