@@ -1,7 +1,7 @@
 {
 "hyperparams":
 	{"NUM_BERT_LAYERS_FREEZE": 8 , 
-	 "MAX_SEQ_LENGTH": 256 ,
+	 "MAX_SEQ_LENGTH": 384 ,
 	  "optimizer" : "AdamW",  
 	  "TRAIN_BATCH_SIZE" : 24, 
 	  "EVAL_BATCH_SIZE" : 8, 
@@ -23,7 +23,7 @@
 	  "REPORTS_DIR" : "reports/re/", 
 	  "CACHE_DIR" : "cache/", 
 	  "WEIGHTS_NAME" :  "pytorch_model.bin",
-	  "MODEL_NAME": "BioBERT_CNN_fc" ,
+	  "MODEL_NAME": "BioBERT_fc" ,
 	  "DEBUG_PRINT" : 0
 	  },	
 "modelconfig":
