@@ -37,7 +37,7 @@ def run_save_results(config,device,all_experiment_results):
     
     all_experiment_results.append([config_json, train_loss, dev_loss, train_mcc, train_f1_score,dev_mcc,dev_f1_score, 
                                dev_label_ids, dev_preds,train_label_ids,train_preds  ])    
-
+    
     
 
 
@@ -79,7 +79,11 @@ def run_all_experiments_save(device):
 # Third run with CNN
 
 #   Save all the results to the file for later analysis
-    
+
+# Change the Model with different learning rate
+    config.hyperparams.LEARNING_RATE = 1.25e-5
+    run_save_results (config, device, all_experiment_results)
+
     all_model_results_pickle_file = config.programsettings.REPORTS_DIR + "multi_model_experiment_results_" + str(datetime.now()).replace(":", "_").replace(".", "_") + ".pkl"
     with open(all_model_results_pickle_file, "wb") as f:
         pickle.dump(all_experiment_results, f)      
