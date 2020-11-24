@@ -30,9 +30,9 @@
 	{"BERT_FEATURES": 768  ,
 	  "LAYER1_FEATURES" : 256,  
 	  "LBAEL_CLASSES" : 9, 
-	  "KERNEL_1" : 12, 
-	  "KERNEL_2" : 14, 
-	  "KERNEL_3" :  16,
+	  "KERNEL_1" : 24, 
+	  "KERNEL_2" : 30, 
+	  "KERNEL_3" :  36,
 	  "STRIDE": 1 ,
 	  "OUT_SIZE" : 64
 	  }	
