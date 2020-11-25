@@ -232,12 +232,14 @@ class MultiClassificationProcessor(DataProcessor):
         num_train_optimization_steps = int(
         data_len / config.hyperparams.TRAIN_BATCH_SIZE / config.hyperparams.GRADIENT_ACCUMULATION_STEPS) * config.hyperparams.NUM_TRAIN_EPOCHS
 
+        seq_length = str(config.hyperparams.MAX_SEQ_LENGTH)
+        
         if source == "train":
-            feature_pickle_file = config.programsettings.DATA_DIR + "train_features.pkl"
+            feature_pickle_file = config.programsettings.DATA_DIR + "train_features_" + seq_length + ".pkl"
         elif source == "dev":
-            feature_pickle_file = config.programsettings.DATA_DIR + "dev_features.pkl"
+            feature_pickle_file = config.programsettings.DATA_DIR + "dev_features_" + seq_length + ".pkl"
         elif source == "test":
-            feature_pickle_file = config.programsettings.DATA_DIR + "test_features.pkl"
+            feature_pickle_file = config.programsettings.DATA_DIR + "test_features_" + seq_length + ".pkl"
             
         if not os.path.exists(feature_pickle_file):
 
