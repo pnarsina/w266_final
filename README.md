@@ -10,7 +10,8 @@ This is for Berkeley's MIDS program - course w266(NLP and deep learning)  final 
                 1. Train.py (Used for Training the model)
                 2. eval.py (Used for Evaluating the model and saving the results)
                 3. experiment.py (Run through experiment for given configuration)
-                4. experiment_batch.py (Run through multipl experiments together and save the results to given location in the file system)
+                4. experiment_batch.py (Run through multipl experiments together and save the 
+                                        results to given location in the file system)
                 
                 data_pre folder:
                   
@@ -24,7 +25,8 @@ This is for Berkeley's MIDS program - course w266(NLP and deep learning)  final 
                  
                 Config Folder:
                   1.config.json (3 different sections 1.Program settings, 2. hyper parameters 3. Model configuraiton)
-                     Has informaiton about where data(train/dev/test) is located, different hyper parameters like learning rate, batch size, tpe of model etc.
+                     Has informaiton about where data(train/dev/test) is located, different hyper parameters 
+                        like learning rate, batch size, tpe of model etc.
                   2. id_2_label.json (Has mapping from classids to labels)
                   3. label_2.id.json (Has mapping from class labels to ids)
                   
