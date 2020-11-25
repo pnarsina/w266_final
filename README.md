@@ -40,3 +40,7 @@ This is for Berkeley's MIDS program - course w266(NLP and deep learning)  final 
                    1. *.tsv files - train,dev and test.tsv files - Input data for our training
                    2. *.pkl files - cached model ready dataset
                 
+                 notebooks:
+                  1. Experiments.ipynb (Used for running single experiment and analyze)
+                  2. FinalTest.ipynb (Use for running saved models to test on Test data set)
+                  3. MissedPredictionAnalysis.ipynb (Used to analyze test results and especially where the model went wrong)
