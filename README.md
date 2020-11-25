@@ -12,11 +12,13 @@ This is for Berkeley's MIDS program - course w266(NLP and deep learning)  final 
                 3. experiment.py (Run through experiment for given configuration)
                 4. experiment_batch.py (Run through multipl experiments together and save the results to given location in the file system)
                 
+                data_pre folder:
+                  
                 Util Folder:
                 1 DataLoader.py (Used for preparing the data for BERT)
                 2.Tools.py (configuraiton and related helper methods)
                 
-                Model Folder:
+                Model folder:
                  1. MedClinical.py ( Machine Learning models defined in this file)
                  2. model_config.py (All the configruaiton needed for Models, driven by Config file in Config folder)
                  
