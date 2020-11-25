@@ -35,7 +35,7 @@ This is for Berkeley's MIDS program - course w266(NLP and deep learning)  final 
                    
                  reports:
                    This used for saving results from different runs, so that we can analyze results of different experiments together.
-                   1. multi_model_results - Stores each experiment results including train/dev labels, loss, msc, f1-score and more
+                   1. multi_model_results - Stores each experiment results including train/dev labels, loss, mcc, f1-score and more
                    2. Test_results - These are the results from running the selected models on Test data. This file includes labels, predictions and mislabeled data
                   
                  data_divided:
