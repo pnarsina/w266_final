@@ -29,7 +29,7 @@ class Biobert_fc(nn.Module):
  
           return linear1_output
 
-    
+   
     
     
 class Biobert_cnn_fc(nn.Module):    
@@ -110,4 +110,31 @@ class Biobert_cnn_fc(nn.Module):
           #print("out shape", out.squeeze().shape)
 
           return out.squeeze()
+
+
+# Implement CRF layer on top of BERT
+class Biobert_crf(nn.Module):
     
+    def __init__(self):
+        super(Biobert_fc, self).__init__()
+
+        self.model_conf = model_config()
+
+
+        self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
+        self.linear1 = nn.DataParallel(nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes))
+#         self.bert = BertModel.from_pretrained("gsarti/biobert-nli")
+#         self.linear1 = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
+        
+    def forward(self, ids, segment_ids, mask):
+          sequence_output, pooled_output = self.bert(
+               ids, 
+               token_type_ids  = segment_ids,
+               attention_mask=mask)
+ 
+          linear1_output  = self.linear1(sequence_output[:,0,:].view(-1,self.model_conf.bert_features)) ## extract the 1st token's embeddings
+ 
+#           linear2_output = self.linear2(linear1_output)
+ 
+          return linear1_output
+        
