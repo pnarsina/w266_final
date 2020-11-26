@@ -49,40 +49,43 @@ def run_all_experiments_save(device):
 
     all_experiment_results = []
     # Run with default configuration
-    
+#    run_save_results (config, device, all_experiment_results)
+
+#   Try with different sequence length 
+    config.hyperparams.MAX_SEQ_LENGTH = 256
+    print(config.hyperparams.MAX_SEQ_LENGTH)
+#   Try with different epochs
+    config.hyperparams.NUM_TRAIN_EPOCHS = 5
+    print(config.hyperparams.NUM_TRAIN_EPOCHS)
+#   Try with augmented data
+    config.programsettings.DATA_DIR= "data_dups/"
+    print(config.programsettings.DATA_DIR)
+#   Try with Batchsize of 12
+    config.hyperparams.TRAIN_BATCH_SIZE = 12
+    print(config.hyperparams.TRAIN_BATCH_SIZE)
     run_save_results (config, device, all_experiment_results)
-
-#   Try with different LR 
-#     config.hyperparams.LEARNING_RATE = 0.75e-5
-#     run_save_results (config, device, all_experiment_results)
-
-#     config.hyperparams.LEARNING_RATE = 1.25e-5
-#     run_save_results (config, device, all_experiment_results)
-
     
-# #   Try with Sequence length of 256
-#     config.hyperparams.MAX_SEQ_LENGTH = 256
-#     run_save_results (config, device, all_experiment_results)
-
-# #   Try with Batchsize of 24
-#     config.hyperparams.TRAIN_BATCH_SIZE = 24
-#     run_save_results (config, device, all_experiment_results)
-    
-# #   reset to defaults
-#     config = load_config(config_folder)
+# # reset to defaults
+#    config = load_config(config_folder)
     
 
 #Second iteration of running with weights
-#     config.hyperparams.LOSS_FN_CLASS_WEIGHTS = [0.0530, 0.0469, 0.0415, 0.0430, 0.4402, 0.0607, 0.0636, 0.2443, 0.0068]
-#     run_save_results (config, device, all_experiment_results)
+#    config.hyperparams.LOSS_FN_CLASS_WEIGHTS = [1, 1, 1, 1, 1, 1, 1, 2, 1]
+#   Try with different sequence length 
+#    config.hyperparams.MAX_SEQ_LENGTH = 256
+#   Try with different epochs
+#    config.hyperparams.NUM_TRAIN_EPOCHS = 5
+#   Try with Batchsize of 12
+#    config.hyperparams.TRAIN_BATCH_SIZE = 12
+#    run_save_results (config, device, all_experiment_results)
 
 # Third run with CNN
 
 #   Save all the results to the file for later analysis
 
 # Change the Model with different learning rate
-    config.hyperparams.LEARNING_RATE = 1.25e-5
-    run_save_results (config, device, all_experiment_results)
+#    config.hyperparams.LEARNING_RATE = 1.25e-5
+#    run_save_results (config, device, all_experiment_results)
 
     all_model_results_pickle_file = config.programsettings.REPORTS_DIR + "multi_model_experiment_results_" + str(datetime.now()).replace(":", "_").replace(".", "_") + ".pkl"
     with open(all_model_results_pickle_file, "wb") as f:
