@@ -17,7 +17,7 @@ from transformers.optimization import AdamW
 from torch.optim import lr_scheduler
 import torch.optim as optim
 from datetime import datetime
-
+import pickle
 
 def train_model(config, model,optimizer, scheduler, train_dataloader,  num_labels , data_len, device='cpu', model_save_path = "outputs", 
                 model_name = 'BioBert_fc',      num_epochs=25, GRADIENT_ACCUMULATION_STEPS = 1 ):
@@ -30,6 +30,7 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
     best_model_wts = copy.deepcopy(model.state_dict())
     
     model.train()
+    metrics = []
     for epoch in trange(int(num_epochs), desc="Epoch"):
         tr_loss = 0
         nb_tr_examples, nb_tr_steps = 0, 0
@@ -49,8 +50,10 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
 
 
             weights = torch.Tensor(config.hyperparams.LOSS_FN_CLASS_WEIGHTS)
-            class_weights = torch.FloatTensor(weights).cuda()
-#             class_weights = torch.FloatTensor(weights)
+            if(device =='cuda' or device =='cuda2'):
+                class_weights = torch.FloatTensor(weights).cuda()
+            else:
+                class_weights = torch.FloatTensor(weights)
             loss_fct = CrossEntropyLoss(weight=class_weights, reduction='mean')
 
             loss = loss_fct(logits.view(-1, num_labels), label_ids.view(-1))
@@ -81,7 +84,8 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
                 print('\n Accuumulated for ephoch, loss: ', running_loss, ' , corrects:', running_corrects, ' size: ', data_len)
 
         epoch_acc = np.double(running_corrects)/ (data_len)
-    
+        metrics.append([epoch, running_loss, epoch_acc ])
+        
         if config.programsettings.DEBUG_PRINT == 1:
             print('epoch: {:d}  Acc: {:.4f}'.format(
                 epoch,  epoch_acc))
@@ -96,15 +100,22 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
     print('Best val Acc: {:4f}'.format(best_acc))
 
     model.load_state_dict(best_model_wts)
-    savemodel(model_name,model_save_path, model )
+    savemodel(model_name,model_save_path, model, metrics )
     
     return model
 
-def savemodel(model_name, path, model):
+def savemodel(model_name, path, model, metrics):
 
     if not os.path.exists(path):
         os.makedirs(path)
         os.makedirs(path + model_name)
 
-    file_name = path + model_name + str(datetime.now()).replace(":", "_").replace(".", "_") + ".bin"
+    date_time_string = str(datetime.now()).replace(":", "_").replace(".", "_") 
+    
+    file_name = path + model_name + date_time_string + ".bin"
     torch.save(model, file_name)    
+    
+    metrics_file = path + model_name + date_time_string +  '_train_metrics_' + ".pkl"
+    
+    with open(metrics_file, "wb") as f:
+        pickle.dump(metrics, f)      

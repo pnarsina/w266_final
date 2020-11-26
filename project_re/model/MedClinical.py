@@ -6,16 +6,17 @@ from .model_config import model_config
 
 class Biobert_fc(nn.Module):
     
-    def __init__(self):
+    def __init__(self, device):
         super(Biobert_fc, self).__init__()
 
         self.model_conf = model_config()
-
-
-        self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
-        self.linear1 = nn.DataParallel(nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes))
-#         self.bert = BertModel.from_pretrained("gsarti/biobert-nli")
-#         self.linear1 = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
+      
+        if device == 'cuda2':  
+            self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
+            self.linear1 = nn.DataParallel(nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes))
+        else:
+            self.bert = BertModel.from_pretrained("gsarti/biobert-nli")
+            self.linear1 = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
         
     def forward(self, ids, segment_ids, mask):
           sequence_output, pooled_output = self.bert(
@@ -33,32 +34,54 @@ class Biobert_fc(nn.Module):
     
     
 class Biobert_cnn_fc(nn.Module):    
-    def __init__(self):
+    def __init__(self, device):
         super(Biobert_cnn_fc, self).__init__()
 
         self.model_conf = model_config()
     
         print('from model', self.model_conf.__dict__, 'in feature', self.model_conf.in_features_fc())
         
-        self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
+        if device == 'cuda2':
+            self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
 
 
-        #self.linear1 = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
+            #self.linear1 = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
 
-        # Convolution layers definition
-        self.conv_1 = nn.DataParallel(nn.Conv1d(self.model_conf.layer1_features, self.model_conf.out_size, self.model_conf.kernel_1, self.model_conf.stride))
-        self.conv_2 = nn.DataParallel(nn.Conv1d(self.model_conf.layer1_features, self.model_conf.out_size, self.model_conf.kernel_2, self.model_conf.stride))
-        self.conv_3 = nn.DataParallel(nn.Conv1d(self.model_conf.layer1_features, self.model_conf.out_size, self.model_conf.kernel_3, self.model_conf.stride))
+            # Convolution layers definition
+            self.conv_1 = nn.DataParallel(nn.Conv1d(self.model_conf.layer1_features, self.model_conf.out_size, self.model_conf.kernel_1, self.model_conf.stride))
+            self.conv_2 = nn.DataParallel(nn.Conv1d(self.model_conf.layer1_features, self.model_conf.out_size, self.model_conf.kernel_2, self.model_conf.stride))
+            self.conv_3 = nn.DataParallel(nn.Conv1d(self.model_conf.layer1_features, self.model_conf.out_size, self.model_conf.kernel_3, self.model_conf.stride))
 
-        # Max pooling layers definition
-        self.pool_1 = nn.DataParallel(nn.MaxPool1d(self.model_conf.kernel_1, self.model_conf.stride))
-        self.pool_2 = nn.DataParallel(nn.MaxPool1d(self.model_conf.kernel_2, self.model_conf.stride))
-        self.pool_3 = nn.DataParallel(nn.MaxPool1d(self.model_conf.kernel_3, self.model_conf.stride))
+            # Max pooling layers definition
+            self.pool_1 = nn.DataParallel(nn.MaxPool1d(self.model_conf.kernel_1, self.model_conf.stride))
+            self.pool_2 = nn.DataParallel(nn.MaxPool1d(self.model_conf.kernel_2, self.model_conf.stride))
+            self.pool_3 = nn.DataParallel(nn.MaxPool1d(self.model_conf.kernel_3, self.model_conf.stride))
 
 
-        # Fully connected layer definition
-        #print("in_features_fc()", self.model_conf.in_features_fc())
-        self.fc = nn.DataParallel(nn.Linear(self.model_conf.in_features_fc(), self.model_conf.label_classes))
+            # Fully connected layer definition
+            #print("in_features_fc()", self.model_conf.in_features_fc())
+            self.fc = nn.DataParallel(nn.Linear(self.model_conf.in_features_fc(), self.model_conf.label_classes))
+        else:
+            self.bert = BertModel.from_pretrained("gsarti/biobert-nli")
+
+
+            #self.linear1 = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
+
+            # Convolution layers definition
+            self.conv_1 = nn.Conv1d(self.model_conf.layer1_features, self.model_conf.out_size, self.model_conf.kernel_1, self.model_conf.stride)
+            self.conv_2 = nn.Conv1d(self.model_conf.layer1_features, self.model_conf.out_size, self.model_conf.kernel_2, self.model_conf.stride)
+            self.conv_3 = nn.Conv1d(self.model_conf.layer1_features, self.model_conf.out_size, self.model_conf.kernel_3, self.model_conf.stride)
+
+            # Max pooling layers definition
+            self.pool_1 = nn.MaxPool1d(self.model_conf.kernel_1, self.model_conf.stride)
+            self.pool_2 = nn.MaxPool1d(self.model_conf.kernel_2, self.model_conf.stride)
+            self.pool_3 = nn.MaxPool1d(self.model_conf.kernel_3, self.model_conf.stride)
+
+
+            # Fully connected layer definition
+            #print("in_features_fc()", self.model_conf.in_features_fc())
+            self.fc = nn.Linear(self.model_conf.in_features_fc(), self.model_conf.label_classes)
+            
         #7
 
 
