@@ -106,6 +106,16 @@ def run_all_experiments_save(device):
 
     run_save_results (config, device, all_experiment_results)
     
+
+    config.modelconfig.KERNEL_1 = 36
+    config.modelconfig.KERNEL_2 = 48
+    config.modelconfig.KERNEL_3 = 60
+
+    run_save_results (config, device, all_experiment_results)
+    
+    config.hyperparams.MAX_SEQ_LENGTH = 512
+    run_save_results (config, device, all_experiment_results)
+    
     all_model_results_pickle_file = config.programsettings.REPORTS_DIR + "multi_model_experiment_results_" + str(datetime.now()).replace(":", "_").replace(".", "_") + ".pkl"
     with open(all_model_results_pickle_file, "wb") as f:
         pickle.dump(all_experiment_results, f)      

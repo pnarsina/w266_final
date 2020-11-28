@@ -2,7 +2,7 @@ import torch.nn as nn
 import math
 from transformers import BertModel
 import torch
-from torchcrf import CRF
+# from torchcrf import CRF
 import numpy as np
 from torch.autograd import Variable
 import torch.nn.functional as F
@@ -350,46 +350,46 @@ class ConvNet(nn.Module):
     
 
 
-# Implement CRF layer on top of BERT
-class Biobert_crf(nn.Module):
+# # Implement CRF layer on top of BERT
+# class Biobert_crf(nn.Module):
     
-    def __init__(self, device):
-        start_label_id =0
-        stop_label_id = 8
-        super(Biobert_crf, self).__init__()
+#     def __init__(self, device):
+#         start_label_id =0
+#         stop_label_id = 8
+#         super(Biobert_crf, self).__init__()
 
-        self.model_conf = model_config()
+#         self.model_conf = model_config()
 
-        if device == 'cuda2':
-            self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
-            self.dropout = nn.DataParallel(torch.nn.Dropout(0.2))
-            # Maps the output of the bert into label space.
-            self.hidden2label = nn.DataParallel(nn.Linear(self.model_conf.bert_features,  self.model_conf.label_classes))
-            self.crf =  nn.DataParallel(CRF(self.model_conf.label_classes))
-        else:
-            self.bert = BertModel.from_pretrained("gsarti/biobert-nli")
-            self.dropout = torch.nn.Dropout(0.2)
-            # Maps the output of the bert into label space.
-            self.hidden2label = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
-            self.crf = CRF(self.model_conf.label_classes)
+#         if device == 'cuda2':
+#             self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
+#             self.dropout = nn.DataParallel(torch.nn.Dropout(0.2))
+#             # Maps the output of the bert into label space.
+#             self.hidden2label = nn.DataParallel(nn.Linear(self.model_conf.bert_features,  self.model_conf.label_classes))
+#             self.crf =  nn.DataParallel(CRF(self.model_conf.label_classes))
+#         else:
+#             self.bert = BertModel.from_pretrained("gsarti/biobert-nli")
+#             self.dropout = torch.nn.Dropout(0.2)
+#             # Maps the output of the bert into label space.
+#             self.hidden2label = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
+#             self.crf = CRF(self.model_conf.label_classes)
             
-#         self.transitions = nn.Parameter(torch.randn(self.model_conf.label_classes, self.model_conf.label_classes))
-#         self.transitions.data[start_label_id, :] = -10000
-#         self.transitions.data[:, stop_label_id] = -10000
+# #         self.transitions = nn.Parameter(torch.randn(self.model_conf.label_classes, self.model_conf.label_classes))
+# #         self.transitions.data[start_label_id, :] = -10000
+# #         self.transitions.data[:, stop_label_id] = -10000
 
-    def forward(self, ids, segment_ids, mask):
-#         tags =  torch.tensor([
-#             [0, 1], [2, 4], [3, 1],[7,8]], dtype=torch.long)  # (seq_length, batch_size)
-        sequence_output, pooled_output = self.bert(
-               ids, 
-               token_type_ids  = segment_ids,
-               attention_mask=mask)
-        bert_seq_out = self.dropout(sequence_output)
-        bert_seq_out = self.dropout(bert_seq_out)
-        bert_feats = self.hidden2label(bert_seq_out)
-        print(bert_feats.shape)
-        x1 = self.crf.decode(bert_feats)
-#         print('shape:', np.array(x1).shape)
-#         print(x1)
-        return torch.Tensor(x1)
+#     def forward(self, ids, segment_ids, mask):
+# #         tags =  torch.tensor([
+# #             [0, 1], [2, 4], [3, 1],[7,8]], dtype=torch.long)  # (seq_length, batch_size)
+#         sequence_output, pooled_output = self.bert(
+#                ids, 
+#                token_type_ids  = segment_ids,
+#                attention_mask=mask)
+#         bert_seq_out = self.dropout(sequence_output)
+#         bert_seq_out = self.dropout(bert_seq_out)
+#         bert_feats = self.hidden2label(bert_seq_out)
+#         print(bert_feats.shape)
+#         x1 = self.crf.decode(bert_feats)
+# #         print('shape:', np.array(x1).shape)
+# #         print(x1)
+#         return torch.Tensor(x1)
         
