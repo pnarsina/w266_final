@@ -6,6 +6,7 @@ import torch
 import numpy as np
 from torch.autograd import Variable
 import torch.nn.functional as F
+from torch.nn import LayerNorm
 
 class Biobert_fc(nn.Module):
     
@@ -60,7 +61,7 @@ class Biobert_cnn_fc(nn.Module):
             self.pool_2 = nn.DataParallel(nn.MaxPool1d(self.model_conf.kernel_2, self.model_conf.stride))
             self.pool_3 = nn.DataParallel(nn.MaxPool1d(self.model_conf.kernel_3, self.model_conf.stride))
 
-
+ 
             # Fully connected layer definition
             #print("in_features_fc()", self.model_conf.in_features_fc())
             self.fc = nn.DataParallel(nn.Linear(self.model_conf.in_features_fc(), self.model_conf.label_classes))
@@ -80,7 +81,8 @@ class Biobert_cnn_fc(nn.Module):
             self.pool_2 = nn.MaxPool1d(self.model_conf.kernel_2, self.model_conf.stride)
             self.pool_3 = nn.MaxPool1d(self.model_conf.kernel_3, self.model_conf.stride)
 
-
+            self.layer_norm = LayerNorm(self.model_conf.in_features_fc())
+            
             # Fully connected layer definition
             #print("in_features_fc()", self.model_conf.in_features_fc())
             self.fc = nn.Linear(self.model_conf.in_features_fc(), self.model_conf.label_classes)
@@ -118,6 +120,8 @@ class Biobert_cnn_fc(nn.Module):
           x3 = torch.relu(x3)
           x3 = self.pool_3(x3)
 
+#           x3 = self.layer_norm(x3)
+            
           #print("x3 shape: ", x3.shape)
 
           # The output of each convolutional layer is concatenated into a unique vector
@@ -129,6 +133,7 @@ class Biobert_cnn_fc(nn.Module):
          #print("union reshape  type: ", type(union))
           #print("union reshape  shape: ", union.shape)
 
+          union = self.layer_norm(union)
           # The "flattened" vector is passed through a fully connected layer
           out = self.fc(union)
           #print("out shape pre softmax", out.shape)
