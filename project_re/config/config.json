@@ -1,12 +1,12 @@
 {
 "hyperparams":
 	{"NUM_BERT_LAYERS_FREEZE": 8 , 
-	 "MAX_SEQ_LENGTH": 384 ,
+	 "MAX_SEQ_LENGTH": 256 ,
 	  "optimizer" : "AdamW",  
 	  "TRAIN_BATCH_SIZE" : 24, 
 	  "EVAL_BATCH_SIZE" : 8, 
 	  "LEARNING_RATE" : 1e-5, 
-	  "NUM_TRAIN_EPOCHS" : 10, 
+	  "NUM_TRAIN_EPOCHS" : 3, 
 	  "NUM_WARMP_STEPS" : 100,
 	  "WARMUP_PROPORTION" : 0.1,
 	  "SCHEDULER_STEP_SIZE" : 1,
@@ -23,17 +23,18 @@
 	  "REPORTS_DIR" : "reports/re/", 
 	  "CACHE_DIR" : "cache/", 
 	  "WEIGHTS_NAME" :  "pytorch_model.bin",
-	  "MODEL_NAME": "BioBERT_fc" ,
+	  "MODEL_NAME": "BioBERT_CNN_fc" ,
 	  "DEBUG_PRINT" : 0
 	  },	
 "modelconfig":
 	{"BERT_FEATURES": 768  ,
 	  "LAYER1_FEATURES" : 256,  
 	  "LBAEL_CLASSES" : 9, 
-	  "KERNEL_1" : 24, 
+	  "KERNEL_1" : 24 , 
 	  "KERNEL_2" : 30, 
 	  "KERNEL_3" :  36,
-	  "STRIDE": 1 ,
+	  "KERNEL_SIZES" : [24,30,36],
+	  "STRIDE": 1,
 	  "OUT_SIZE" : 64
 	  }	
 
