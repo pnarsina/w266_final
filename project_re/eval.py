@@ -39,8 +39,11 @@ def eval_model(config, model, eval_dataloader, device,num_labels):
 
         # create eval loss and other metric required by the task
         weights = torch.Tensor(config.hyperparams.LOSS_FN_CLASS_WEIGHTS)
-        class_weights = torch.FloatTensor(weights).cuda()
-#         class_weights = torch.FloatTensor(weights)
+        
+        if device == 'cuda' or device == 'cuda2':
+            class_weights = torch.FloatTensor(weights).cuda()
+        else:
+            class_weights = torch.FloatTensor(weights)
         loss_fct = CrossEntropyLoss(weight=class_weights, reduction='mean')
         tmp_eval_loss = loss_fct(logits.view(-1, num_labels), label_ids.view(-1))
 
@@ -60,6 +63,7 @@ def eval_model(config, model, eval_dataloader, device,num_labels):
                 inputs[0], input_ids.detach().cpu().numpy(), axis=0)
 
     eval_loss = eval_loss / nb_eval_steps
+    
     preds = preds[0]
     labels = labels[0]
     inputs = inputs[0]

@@ -21,6 +21,7 @@ from util.DataLoader import MultiClassificationProcessor
 
 
 def run_model(config, device):
+    model_config1 = model_config()
     
 #     Load data and create features. If calculated features available in the cache, it will use it
     dataprocessor = MultiClassificationProcessor()
@@ -28,12 +29,13 @@ def run_model(config, device):
 
 #   set to right Model Name
     if config.programsettings.MODEL_NAME == "BioBERT_fc":
-        model = Biobert_fc()
+        model = Biobert_fc(device, model_config1)
     if config.programsettings.MODEL_NAME == "BioBERT_CNN_fc":
-        model = Biobert_cnn_fc()
+        model = Biobert_cnn_fc(device, model_config1)
     elif config.programsettings.MODEL_NAME == "BERT_Sequence":
         model = BertForSequenceClassification.from_pretrained(config.programsettings.BERT_MODEL, cache_dir=config.programsettings.CACHE_DIR, num_labels=num_labels)
 
+        
 #   Freeze BERT layers if we don't want to tune based on configuraiton
     if config.hyperparams.NUM_BERT_LAYERS_FREEZE >= 0:
         count = 0 

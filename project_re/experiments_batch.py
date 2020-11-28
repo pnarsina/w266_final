@@ -84,20 +84,28 @@ def run_all_experiments_save(device):
 
 #Fourth Run with higher sequence length 
 # Change the Model with different learning rate
-    config.hyperparams.LEARNING_RATE = 2e-5
-    run_save_results (config, device, all_experiment_results)    
+#     config.hyperparams.LEARNING_RATE = 2e-5
+#     run_save_results (config, device, all_experiment_results)    
     
-    config.hyperparams.LOSS_FN_CLASS_WEIGHTS = [1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0 ]
-    config.hyperparams.MAX_SEQ_LENGTH = 512
-    config.hyperparams.TRAIN_BATCH_SIZE = 12
-    run_save_results (config, device, all_experiment_results)
+#     config.hyperparams.LOSS_FN_CLASS_WEIGHTS = [1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0 ]
+#     config.hyperparams.MAX_SEQ_LENGTH = 512
+#     config.hyperparams.TRAIN_BATCH_SIZE = 12
+#     run_save_results (config, device, all_experiment_results)
     
-    config.hyperparams.LOSS_FN_CLASS_WEIGHTS = [1.0,1.0,1.0,1.0,1.0,1.0,1.0,3.0,1.0 ]
-    run_save_results (config, device, all_experiment_results)
+#     config.hyperparams.LOSS_FN_CLASS_WEIGHTS = [1.0,1.0,1.0,1.0,1.0,1.0,1.0,3.0,1.0 ]
+#     run_save_results (config, device, all_experiment_results)
 
     
 #   Save all the results to the file for later analysis
 
+# Fifth time with different CNN configuraitons
+
+    config.modelconfig.KERNEL_1 = 8
+    config.modelconfig.KERNEL_2 = 12
+    config.modelconfig.KERNEL_3 = 16
+
+    run_save_results (config, device, all_experiment_results)
+    
     all_model_results_pickle_file = config.programsettings.REPORTS_DIR + "multi_model_experiment_results_" + str(datetime.now()).replace(":", "_").replace(".", "_") + ".pkl"
     with open(all_model_results_pickle_file, "wb") as f:
         pickle.dump(all_experiment_results, f)      
