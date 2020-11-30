@@ -103,3 +103,31 @@ def calculate_stats(labels, preds):
     label_matches_df = df_results.groupby(["labels", "matched"]).count()
     
     return mcc, f1_score, df_results, label_matches_df
+
+
+def get_BERT_Embedings(config, model, eval_dataloader, device,num_labels):
+    bert_embedings = []
+    labels = []
+    model.eval()
+    for input_ids, input_mask, segment_ids, label_ids in tqdm_notebook(eval_dataloader, desc="Evaluating"):
+        input_ids = input_ids.to(device)
+        input_mask = input_mask.to(device)
+        segment_ids = segment_ids.to(device)
+        label_ids = label_ids.to(device)
+        
+        
+        with torch.no_grad():
+            logits = model(input_ids, segment_ids, input_mask)
+   
+#         print(type(logits))
+#         print(logits)
+
+        if(len(bert_embedings)  == 0):
+                bert_embedings = logits
+                labels.append(label_ids.detach().cpu().numpy())
+        else:
+                bert_embedings =torch.cat((torch.Tensor(bert_embedings), logits),0)
+                labels[0] = np.append(
+                    labels[0], label_ids.detach().cpu().numpy(), axis=0)        
+        
+    return(list(bert_embedings), labels)

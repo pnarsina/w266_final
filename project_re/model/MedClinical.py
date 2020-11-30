@@ -8,6 +8,7 @@ from torch.autograd import Variable
 import torch.nn.functional as F
 from torch.nn import LayerNorm
 
+
 class Biobert_fc(nn.Module):
     
     def __init__(self, device, model_config):
@@ -15,7 +16,7 @@ class Biobert_fc(nn.Module):
 
         self.model_conf = model_config
       
-        if device == 'cuda2':  
+        if device == 'cuda':  
             self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
             self.linear1 = nn.DataParallel(nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes))
         else:
@@ -43,9 +44,9 @@ class Biobert_cnn_fc(nn.Module):
 
         self.model_conf = model_config
     
-        print('from model', self.model_conf.__dict__, 'in feature', self.model_conf.in_features_fc())
+#         print('from model', self.model_conf.__dict__, 'in feature', self.model_conf.in_features_fc())
         
-        if device == 'cuda2':
+        if device == 'cuda':
             self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
 
 
@@ -89,6 +90,14 @@ class Biobert_cnn_fc(nn.Module):
             
         #7
 
+    def custom_softmax(self, x):
+#         print('In softmax function',x)
+        means = torch.mean(x, 1, keepdim=True)[0]
+        x_exp = torch.exp(x-means)
+        x_exp_sum = torch.sum(x_exp, 1, keepdim=True)
+#         print('return from softmax', x_exp/x_exp_sum)
+        return x_exp/x_exp_sum
+        
 
     def forward(self, ids, segment_ids, mask):
 
@@ -138,221 +147,39 @@ class Biobert_cnn_fc(nn.Module):
           out = self.fc(union)
           #print("out shape pre softmax", out.shape)
           # Activation function is applied
-          out = torch.softmax(out, dim=1)
+#           out = torch.softmax(out, dim=1)
+          out = self.custom_softmax(out)
           #print("out shape", out.squeeze().shape)
 
           return out.squeeze()
 
         
-class Biobert_cnn_fc_new(nn.Module):    
-    
-    def __init__(self, device, model_config):
-        super(Biobert_cnn_fc_new, self).__init__()
-
-        self.model_conf = model_config
-    
-#         print('from model', self.model_conf.__dict__, 'in feature', self.model_conf.in_features_fc())
-        kernel_sizes = [24,30,36] #self.model_conf.KERNEL_SIZES
-        kernel_1 = [self.model_conf.kernel_1,self.model_conf.bert_features ]
-        kernel_2 = [self.model_conf.kernel_2,self.model_conf.bert_features ]
-        kernel_3 = [self.model_conf.kernel_3,self.model_conf.bert_features ]
+class KimCNN(nn.Module):
+    def __init__(self, embed_num, embed_dim, class_num, kernel_num, kernel_sizes, dropout):
+        super(KimCNN, self).__init__()
+        V = embed_num
+        D = embed_dim
+        C = class_num
+        Co = kernel_num
+        Ks = kernel_sizes
         
-        kerenl_num = 3
-        embeding_dimension = self.model_conf.bert_features
+        self.embed = nn.Embedding(V, D)
+        self.convs1 = nn.ModuleList([nn.Conv2d(1, Co, (K, D)) for K in Ks])
+        self.dropout = nn.Dropout(dropout)
+        self.fc1 = nn.Linear(len(Ks) * Co, C)
+        self.sigmoid = nn.Sigmoid()
         
-        if device == 'cuda2':
-            self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
+    def forward(self, x):
+        x = Variable(x)
+        x = x.unsqueeze(1)  # (N, Ci, W, D)
+        x = [F.relu(conv(x)).squeeze(3).to(device) for conv in self.convs1]  # [(N, Co, W), ...]*len(Ks)
+        x = [F.max_pool1d(i, i.size(2)).squeeze(2) for i in x]  # [(N, Co), ...]*len(Ks)
+        x = torch.cat(x, 1)
+        x = self.dropout(x)  # (N, len(Ks)*Co)
+        logit = self.fc1(x)  # (N, C)
+        output = self.sigmoid(logit)
+        return output
 
-
-            #self.linear1 = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
-
-            # Convolution layers definition
-            self.conv_1 = nn.DataParallel(nn.Conv2d(self.model_conf.layer1_features, self.model_conf.out_size, kernel_1, self.model_conf.stride))
-            self.conv_2 = nn.DataParallel(nn.Conv2d(self.model_conf.layer1_features, self.model_conf.out_size, kernel_2, self.model_conf.stride))
-            self.conv_3 = nn.DataParallel(nn.Conv2d(self.model_conf.layer1_features, self.model_conf.out_size, kernel_3, self.model_conf.stride))
-
-            # Max pooling layers definition
-            self.pool_1 = nn.DataParallel(nn.MaxPool1d(kernel_1, self.model_conf.stride))
-            self.pool_2 = nn.DataParallel(nn.MaxPool1d(kernel_2, self.model_conf.stride))
-            self.pool_3 = nn.DataParallel(nn.MaxPool1d(kernel_3, self.model_conf.stride))
-
-
-            # Fully connected layer definition
-            #print("in_features_fc()", self.model_conf.in_features_fc())
-            self.fc = nn.DataParallel(nn.Linear(self.model_conf.in_features_fc(), self.model_conf.label_classes))
-        else:
-            self.bert = BertModel.from_pretrained("gsarti/biobert-nli")
-
-
-            #self.linear1 = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
-
-            # Convolution layers definition
-            self.conv_1 = nn.Conv2d(1, 3, (24,768), (2,1))
-            self.conv_2 = nn.Conv2d(1,3 , (36,768), (2,1))
-            self.conv_3 = nn.Conv2d(1,3, (48,768), (2,1))
-
-            # Max pooling layers definition
-            self.pool_1 = nn.MaxPool2d((24,768), (2,1))
-            self.pool_2 = nn.MaxPool2d((36,768), (2,1))
-            self.pool_3 = nn.MaxPool2d((48,768), (2,1))
-
-
-            # Fully connected layer definition
-            #print("in_features_fc()", self.model_conf.in_features_fc())
-            self.fc = nn.Linear(9, self.model_conf.label_classes)
-            
-
-#  Different implementation            
-#             self.bert = BertModel.from_pretrained("gsarti/biobert-nli")
-
-
-#             #self.linear1 = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
-
-#             # Convolution layers definition
-#             self.convs1 = nn.ModuleList([nn.Conv2d(1, kerenl_num, (K, embeding_dimension)) for K in kernel_sizes])
-# #             self.dropout = nn.Dropout(0.1)
-#             self.fc = nn.Linear(len(kernel_sizes) * kerenl_num, self.model_conf.label_classes)
-        
-
-
-
-        
-    def forward(self, ids, segment_ids, mask):
-
-          sequence_output, pooled_output = self.bert(
-                                                     ids,
-                                                     token_type_ids  = segment_ids,
-                                                     attention_mask=mask)
-
-          #print("sequence output type: ", type(sequence_output))
-          print("sequence output type: ", sequence_output.shape)
-          x = sequence_output
-        
-          x = x.unsqueeze(1)
-          print('shape x1', x.shape) 
-          # Convolution layer 1 is applied
-          x1 = self.conv_1(x)
-          print('shape x1', x1.shape)
-          x1 = torch.relu(x1.squeeze(3))
-          print('shape x1', x1.shape)
-          x1 = self.pool_1(x1.squeeze(2))
-            
-
-          #print("x1 shape: ", x1.shape)
-
-          # Convolution layer 2 is applied
-          x2 = self.conv_2(x)
-          x2 = torch.relu((x2.squeeze(3)))
-          x2 = self.pool_2(x2.squeeze(2))
-
-          #print("x2 shape: ", x2.shape)
-
-          # Convolution layer 3 is applied
-          x3 = self.conv_3(x)
-          x3 = torch.relu(x3.squeeze(3))
-          x3 = self.pool_3(x3.squeeze(2))
-
-          #print("x3 shape: ", x3.shape)
-
-          # The output of each convolutional layer is concatenated into a unique vector
-          union = torch.cat((x1, x2, x3), 2)
-          #print("union  type: ", type(union))
-          #print("union  shape: ", union.shape)
-
-          union = union.reshape(union.size(0), -1)
-         #print("union reshape  type: ", type(union))
-          #print("union reshape  shape: ", union.shape)
-
-          # The "flattened" vector is passed through a fully connected layer
-          out = self.fc(union)
-          #print("out shape pre softmax", out.shape)
-          # Activation function is applied
-          out = torch.softmax(out, dim=1)
-          #print("out shape", out.squeeze().shape)
-
-          return out.squeeze()        
-        
-# Different implementation
-
-#           #print("sequence output type: ", type(sequence_output))
-#           #print("sequence output type: ", sequence_output.shape)
-#         x = sequence_output
-# #         if self.static:
-#         x = Variable(x)
-
-#         x = x.unsqueeze(1)  # (N, Ci, W, D)
-#         x = [F.relu(conv(x)).squeeze(3) for conv in self.convs1]  # [(N, Co, W), ...]*len(Ks)
-#         x = [F.max_pool1d(i, i.size(2)).squeeze(2) for i in x]  # [(N, Co), ...]*len(Ks)
-#         union = torch.cat(x, 1)
-# #         x = self.dropout(x)  # (N, len(Ks)*Co)
-#         union = union.reshape(union.size(0), -1)
-    
-#         logit = self.fc(union)  # (N, C)
-
-#         out = torch.softmax(logit, dim=1)
-
-#         return out.squeeze()
-
-
-
-class ConvNet(nn.Module):
-    
-    def __init__(self, device, model_config):
-        super(ConvNet, self).__init__()
-        in_size = 256
-        hid1_size = 16
-        hid2_size = 32
-        k_conv_size = 5
-        out_size = 9
-        
-        self.model_conf = model_config
-        self.bert = BertModel.from_pretrained("gsarti/biobert-nli")
-        
-        self.layer1 = nn.Sequential(
-            nn.Conv1d(in_size, hid1_size, k_conv_size ),
-            nn.BatchNorm1d(hid1_size),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=2))
-        
-#         self.layer2 = nn.Sequential(
-#             nn.Conv2d(hid1_size, hid2_size, k_conv_size),
-#             nn.BatchNorm2d(hid2_size),
-#             nn.ReLU(),
-#             nn.MaxPool2d(kernel_size=2))
-
-#           out_conv_1 = ((self.in_size - 1 * (self.kernel_1 - 1) - 1) / self.stride) + 1
-#           #767
-#           #((768 - 1*(2-1) -1)/2) + 1 = 384
-#           out_conv_1 = math.floor(out_conv_1)
-#           #384
-#           out_pool_1 = ((out_conv_1 - 1 * (self.kernel_1 - 1) - 1) / self.stride) + 1
-#           #((384 - 1 * (2 - 1) - 1) / 2) + 1 = 192
-#           #766
-#           out_pool_1 = math.floor(out_pool_1)
-            
-        out_pool_1 = ((hid1_size - 1 * (k_conv_size - 1) - 1) / 1) + 1
-        self.fc = nn.Linear(out_pool_1 , out_size)
-        
-    def forward(self,  ids, segment_ids, mask):
-        
-        sequence_output, pooled_output = self.bert(
-                                                 ids,
-                                                 token_type_ids  = segment_ids,
-                                                 attention_mask=mask)
-
-        #print("sequence output type: ", type(sequence_output))
-        print("sequence output type: ", sequence_output.shape)
-        x = sequence_output
-
-#         x = x.unsqueeze(1)    
-#         x = torch.transpose(x,)
-        out = self.layer1(x)
-#         out = self.layer2(out)
-        out = out.reshape(out.size(0), -1)
-        out = self.fc(out)
-        out = torch.softmax(out, dim=1)
-        return out
-    
 
 
 # # Implement CRF layer on top of BERT

@@ -24,19 +24,24 @@ def save_missed_cases_to_file(config, file_start_name, dev_preds, dev_label_ids,
 
 def run_save_results(config,device,all_experiment_results):
 #   Run the model and capture the details
-    train_inputs, train_label_ids, train_preds, train_loss, dev_inputs, dev_label_ids, dev_loss, dev_preds = run_model(config, device)
+    train_inputs, train_label_ids, train_preds, train_loss, dev_inputs, dev_label_ids, dev_loss, dev_preds, \
+    test_inputs, test_preds, test_labels, test_loss = run_model(config, device)
     
 #   save missed cases
-    save_missed_cases_to_file(config, "BIOBERT_fc_missedcases_" , dev_preds, dev_label_ids, train_inputs)
+    save_missed_cases_to_file(config, "BIOBERT_fc_dev_missedcases_" , dev_preds, dev_label_ids, train_inputs)
+    save_missed_cases_to_file(config, "BIOBERT_fc_test_missedcases_" , test_preds, test_labels, test_inputs)
     
 #   save results stats
     train_mcc, train_f1_score, train_df_results, train_label_matches_df = calculate_stats(train_label_ids,train_preds )
     dev_mcc, dev_f1_score, dev_df_results, dev_label_matches_df = calculate_stats(dev_label_ids,dev_preds )
+    test_mcc, test_f1_score, test_df_results, test_label_matches_df = calculate_stats(test_labels,test_preds )
 
+    
     config_json     = configEncoder().encode(config)
     
     all_experiment_results.append([config_json, train_loss, dev_loss, train_mcc, train_f1_score,dev_mcc,dev_f1_score, 
-                               dev_label_ids, dev_preds,train_label_ids,train_preds  ])    
+                               dev_label_ids, dev_preds,train_label_ids,train_preds,train_inputs,test_inputs, test_preds, test_labels,  \
+                               test_mcc,test_f1_score   ])    
     
     
 

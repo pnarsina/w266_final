@@ -20,6 +20,8 @@ from util.tools  import *
 from util.DataLoader import MultiClassificationProcessor
 
 
+
+
 def run_model(config, device):
     model_config1 = model_config()
     
@@ -63,4 +65,11 @@ def run_model(config, device):
 #   Run the trained model on dev data    
     dev_inputs, dev_preds, dev_labels, dev_loss = eval_model( config, model, dev_dataloader, device, num_labels)    
     
-    return train_inputs, train_labels, train_preds, train_loss, dev_inputs, dev_labels, dev_loss, dev_preds
+    
+# Evaluate Test data
+    dataprocessor = MultiClassificationProcessor()
+    test_dataloader, dev_data_len, dev_num_labels, dev_num_train_optimization_steps, all_dev_label_ids = dataprocessor.get_data_loader(config,source='test')    
+
+    test_inputs, test_preds, test_labels, test_loss = eval_model( config, model, test_dataloader, device, num_labels)  
+    
+    return train_inputs, train_labels, train_preds, train_loss, dev_inputs, dev_labels, dev_loss, dev_preds,test_inputs, test_preds, test_labels, test_loss
