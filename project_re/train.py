@@ -28,7 +28,7 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
     tr_loss = 0    
     best_acc = 0.0
     best_model_wts = copy.deepcopy(model.state_dict())
-    
+    epoch_acc = 0
     model.train()
     metrics = []
     for epoch in trange(int(num_epochs), desc="Epoch"):
