@@ -130,12 +130,8 @@ class DataProcessor(object):
     @classmethod
     def createDirectories(cls,config):
         report_dir = config.programsettings.REPORTS_DIR
-        if os.path.exists(report_dir) and os.listdir(report_dir):
-            report_dir += f'/report_{len(os.listdir(report_dir))}'
-            os.makedirs(report_dir)
-        if not os.path.exists(report_dir):
-            os.makedirs(report_dir)
-            report_dir += f'/report_{len(os.listdir(report_dir))}'
+#         if os.path.exists(report_dir) and os.listdir(report_dir):
+#             report_dir += f'/report_{len(os.listdir(report_dir))}'
 #             os.makedirs(report_dir)
 
         output_dir = config.programsettings.OUTPUT_DIR

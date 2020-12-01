@@ -40,7 +40,7 @@ def eval_model(config, model, eval_dataloader, device,num_labels):
         # create eval loss and other metric required by the task
         weights = torch.Tensor(config.hyperparams.LOSS_FN_CLASS_WEIGHTS)
         
-        if device == 'cuda' or device == 'cuda2':
+        if ((device == 'cuda') or (device == 'cuda2')):
             class_weights = torch.FloatTensor(weights).cuda()
         else:
             class_weights = torch.FloatTensor(weights)

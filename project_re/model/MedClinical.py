@@ -62,6 +62,7 @@ class Biobert_cnn_fc(nn.Module):
             self.pool_2 = nn.DataParallel(nn.MaxPool1d(self.model_conf.kernel_2, self.model_conf.stride))
             self.pool_3 = nn.DataParallel(nn.MaxPool1d(self.model_conf.kernel_3, self.model_conf.stride))
 
+            self.layer_norm = nn.DataParallel(LayerNorm(self.model_conf.in_features_fc()))
  
             # Fully connected layer definition
             #print("in_features_fc()", self.model_conf.in_features_fc())
