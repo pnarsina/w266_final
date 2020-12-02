@@ -19,9 +19,11 @@ class Biobert_fc(nn.Module):
         if device == 'cuda':  
             self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
             self.linear1 = nn.DataParallel(nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes))
+            self.dropout = nn.DataParallel(nn.Dropout(model_config.dropout))
         else:
             self.bert = BertModel.from_pretrained("gsarti/biobert-nli")
             self.linear1 = nn.Linear(self.model_conf.bert_features, self.model_conf.label_classes)
+            self.dropout = nn.Dropout(model_config.dropout)
         
     def forward(self, ids, segment_ids, mask):
           sequence_output, pooled_output = self.bert(
@@ -30,10 +32,9 @@ class Biobert_fc(nn.Module):
                attention_mask=mask)
  
           linear1_output  = self.linear1(sequence_output[:,0,:].view(-1,self.model_conf.bert_features)) ## extract the 1st token's embeddings
- 
-#           linear2_output = self.linear2(linear1_output)
- 
-          return linear1_output
+          linear1_output = self.dropout(linear1_output)
+          out = torch.softmax(linear1_output, dim=1)
+          return (out.squeeze())
 
    
     
@@ -153,7 +154,7 @@ class Biobert_cnn_fc(nn.Module):
           #print("out shape pre softmax", out.shape)
           # Activation function is applied
 #           out = torch.softmax(out, dim=1)
-          out = self.custom_softmax(out)
+#           out = self.custom_softmax(out)
           #print("out shape", out.squeeze().shape)
 
           return out.squeeze()
