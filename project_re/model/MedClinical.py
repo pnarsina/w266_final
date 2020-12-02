@@ -93,11 +93,15 @@ class Biobert_cnn_fc(nn.Module):
 
     def custom_softmax(self, x):
 #         print('In softmax function',x)
-        means = torch.mean(x, 1, keepdim=True)[0]
-        x_exp = torch.exp(x-means)
-        x_exp_sum = torch.sum(x_exp, 1, keepdim=True)
-#         print('return from softmax', x_exp/x_exp_sum)
-        return x_exp/x_exp_sum
+        y = x.detach().numpy()
+        x = np.array([ [x1[7],x1[1],x1[2],x1[3],x1[4],x1[5],x1[6],x1[0],x1[8]] \
+                                   if ( (np.argmax(x1) == 0) and ( x1[0] - x1[7] < 0.005)) else x1 for x1 in y])
+
+        means = np.mean(x, 1, keepdims=True)[0]
+        x_exp = np.exp(x-means)
+        x_exp_sum = np.sum(x_exp, 1, keepdims=True)
+        final_value = torch.tensor(x_exp/x_exp_sum )
+        return torch.tensor(final_value, requires_grad=True)
         
 
     def forward(self, ids, segment_ids, mask):
