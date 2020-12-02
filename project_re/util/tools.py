@@ -58,6 +58,8 @@ class model_config:
         # Number of strides for each convolution
         self.stride = mod_config.STRIDE
         self.dropout = mod_config.DROP_OUT
+        self.act_function = mod_config.ACT_FUNCTION
+        self.cust_sftmx_class_beta = mod_config.CUST_SFTMX_CLASS_BETA
         
     def in_features_fc(self):
           '''Calculates the number of output features after Convolution + Max pooling

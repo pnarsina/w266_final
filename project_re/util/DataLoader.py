@@ -236,7 +236,9 @@ class MultiClassificationProcessor(DataProcessor):
             feature_pickle_file = config.programsettings.DATA_DIR + "dev_features_" + seq_length + ".pkl"
         elif source == "test":
             feature_pickle_file = config.programsettings.DATA_DIR + "test_features_" + seq_length + ".pkl"
-            
+        
+        print("Looking for cached feature pickle file", feature_pickle_file)
+        
         if not os.path.exists(feature_pickle_file):
 
             tokenizer = BertTokenizer.from_pretrained('bert-base-cased', do_lower_case=False)
