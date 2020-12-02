@@ -3,7 +3,6 @@ import os
 import sys
 import logging
 import json, math
-import config
 from json import JSONEncoder
 
 logger = logging.getLogger()
@@ -24,12 +23,14 @@ class configEncoder(JSONEncoder):
             return object.__dict__
         else:
             return json.JSONEncoder.default(self, object)
+
         
 def load_config(config_folder):
             
     with open(os.path.join(config_folder, "config.json")) as f:
         config1 = config(json.load(f))
     return config1
+
 
 def load_model_config(config_folder):
     config1 = load_config(config_folder)
@@ -56,6 +57,7 @@ class model_config:
 
         # Number of strides for each convolution
         self.stride = mod_config.STRIDE
+        self.dropout = mod_config.DROP_OUT
         
     def in_features_fc(self):
           '''Calculates the number of output features after Convolution + Max pooling
