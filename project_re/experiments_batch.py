@@ -66,8 +66,8 @@ def run_all_experiments_save(device):
 
     #    Try with regular softmax, set back to 256 seq length
     config.hyperparams.MAX_SEQ_LENGTH = 256
-    config.modelconfig.ACT_FUNCTION = "softmax"
-    run_save_results (config, device, all_experiment_results)
+#     config.modelconfig.ACT_FUNCTION = "softmax"
+#     run_save_results (config, device, all_experiment_results)
     
 #    Try with different filter size
     config.modelconfig.KERNEL_SIZES = [8,10,16]
