@@ -45,14 +45,14 @@ class model_config:
         self.config = mod_config
         self.bert_features = mod_config.BERT_FEATURES
         self.layer1_features = mod_config.LAYER1_FEATURES
-        self.max_seq_length = 256
+        self.max_seq_length = mod_config.MAX_SEQ_LENGTH
         self.label_classes = mod_config.LBAEL_CLASSES
 
     # CNN parameters definition
         # Kernel sizes
-        self.kernel_1 = 24 #mod_config.KERNEL_1
-        self.kernel_2 = 36 #mod_config.KERNEL_2
-        self.kernel_3 = 48 #mod_config.KERNEL_3
+        self.kernel_1 = mod_config.KERNEL_1
+        self.kernel_2 = mod_config.KERNEL_2
+        self.kernel_3 = mod_config.KERNEL_3
 
         # Output size for each convolution (number of convolution channel)
         self.out_size = mod_config.OUT_SIZE
