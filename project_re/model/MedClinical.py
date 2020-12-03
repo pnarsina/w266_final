@@ -67,7 +67,8 @@ class Biobert_cnn_fc(nn.Module):
         self.model_conf = model_config
     
 #         print('from model', self.model_conf.__dict__, 'in feature', self.model_conf.in_features_fc())
-        
+
+        self.device = device
         if device == 'cuda':
             self.bert = nn.DataParallel(BertModel.from_pretrained("gsarti/biobert-nli"))
 
@@ -128,7 +129,7 @@ class Biobert_cnn_fc(nn.Module):
         x_exp = np.exp(x-means)
         x_exp_sum = np.sum(x_exp, 1, keepdims=True)
         final_value = torch.tensor(x_exp/x_exp_sum )
-        return torch.tensor(final_value, requires_grad=True)
+        return torch.tensor(final_value, requires_grad=True, device = self.device)
         
 
     def forward(self, ids, segment_ids, mask):

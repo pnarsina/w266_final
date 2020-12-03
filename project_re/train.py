@@ -36,7 +36,8 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
         nb_tr_examples, nb_tr_steps = 0, 0
         running_loss = 0.0
         running_corrects = 0
-
+        epoch_acc = 0
+        
         for step, batch in enumerate(tqdm_notebook(train_dataloader, desc="Iteration")):
             scheduler.step()
             batch = tuple(t.to(device) for t in batch)
