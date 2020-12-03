@@ -23,7 +23,7 @@ from util.DataLoader import MultiClassificationProcessor
 
 
 def run_model(config, device):
-    model_config1 = model_config()
+    model_config1 = model_config(config.modelconfig)
     
 #     Load data and create features. If calculated features available in the cache, it will use it
     dataprocessor = MultiClassificationProcessor()

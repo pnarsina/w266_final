@@ -54,39 +54,63 @@ def run_all_experiments_save(device):
 
     all_experiment_results = []
     # Run with default configuration
-    
-#   Try with Sequence length
-    #   default 128
+
+    #   Try with different CNN configuraitons, default is 256 sequence lenth with customer softmax
+
     run_save_results (config, device, all_experiment_results)
 
+    #   Try with shorter sequence length
+    config.hyperparams.MAX_SEQ_LENGTH = 128
+    run_save_results (config, device, all_experiment_results)
+
+
+    #    Try with regular softmax, set back to 256 seq length
+    config.hyperparams.MAX_SEQ_LENGTH = 256
+    config.modelconfig.ACT_FUNCTION = "softmax"
+    run_save_results (config, device, all_experiment_results)
+    
+#    Try with different filter size
+    config.modelconfig.KERNEL_SIZES = [8,10,16]
+    run_save_results (config, device, all_experiment_results)
+    
+    all_model_results_pickle_file = config.programsettings.REPORTS_DIR + "multi_model_experiment_results_" + str(datetime.now()).replace(":", "_").replace(".", "_") + ".pkl"
+    with open(all_model_results_pickle_file, "wb") as f:
+        pickle.dump(all_experiment_results, f)      
+
+        
+        
+
+# All previous runs
+
+#After softmax fix
 #     config.hyperparams.MAX_SEQ_LENGTH = 256
 #     run_save_results (config, device, all_experiment_results)
 
-    config.hyperparams.MAX_SEQ_LENGTH = 384
-    run_save_results (config, device, all_experiment_results)
-
-    
-#   Learning Rate and reset sequence length to 128, We already test with 1e-5 lr.
-#     config.hyperparams.MAX_SEQ_LENGTH = 128
-#     config.hyperparams.LEARNING_RATE = 0.75e-5
+#     config.hyperparams.MAX_SEQ_LENGTH = 384
 #     run_save_results (config, device, all_experiment_results)
 
-    config.hyperparams.LEARNING_RATE = 1.25e-5
-    run_save_results (config, device, all_experiment_results)
-
-    config.hyperparams.LEARNING_RATE = 1.5e-5
-    run_save_results (config, device, all_experiment_results)
     
+# #   Learning Rate and reset sequence length to 128, We already test with 1e-5 lr.
+# #     config.hyperparams.MAX_SEQ_LENGTH = 128
+# #     config.hyperparams.LEARNING_RATE = 0.75e-5
+# #     run_save_results (config, device, all_experiment_results)
 
-# Modify Batchsize, we already tested with 12, alos reset learning rate to 1.0e-5
-    config.hyperparams.LEARNING_RATE = 1.5e-5
-#     config.hyperparams.TRAIN_BATCH_SIZE = 16
+#     config.hyperparams.LEARNING_RATE = 1.25e-5
 #     run_save_results (config, device, all_experiment_results)
 
-    config.hyperparams.TRAIN_BATCH_SIZE = 24
-    run_save_results (config, device, all_experiment_results)
+#     config.hyperparams.LEARNING_RATE = 1.5e-5
+#     run_save_results (config, device, all_experiment_results)
     
-# Modify Freezing layers and reset batch size to 12 
+
+# # Modify Batchsize, we already tested with 12, alos reset learning rate to 1.0e-5
+#     config.hyperparams.LEARNING_RATE = 1.5e-5
+# #     config.hyperparams.TRAIN_BATCH_SIZE = 16
+# #     run_save_results (config, device, all_experiment_results)
+
+#     config.hyperparams.TRAIN_BATCH_SIZE = 24
+#     run_save_results (config, device, all_experiment_results)
+    
+# # Modify Freezing layers and reset batch size to 12 
 #     config.hyperparams.TRAIN_BATCH_SIZE = 12    
 #     config.hyperparams.NUM_BERT_LAYERS_FREEZE = 8
 #     run_save_results (config, device, all_experiment_results)
@@ -104,18 +128,8 @@ def run_all_experiments_save(device):
 
 #     config.hyperparams.LOSS_FN_CLASS_WEIGHTS = [1.0,1.0,1.0,1.0,1.0,1.0,1.0,8.0,1.0 ]
 #     run_save_results (config, device, all_experiment_results)
-    
-    
-    
-    
-    all_model_results_pickle_file = config.programsettings.REPORTS_DIR + "multi_model_experiment_results_" + str(datetime.now()).replace(":", "_").replace(".", "_") + ".pkl"
-    with open(all_model_results_pickle_file, "wb") as f:
-        pickle.dump(all_experiment_results, f)      
-        
-        
-        
 
-# All previous runs
+
 #   Try with different LR 
 #     config.hyperparams.LEARNING_RATE = 0.75e-5
 #     run_save_results (config, device, all_experiment_results)
