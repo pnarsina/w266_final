@@ -38,9 +38,10 @@ def load_model_config(config_folder):
 
 
 class model_config:
-    def __init__(self, model_config):
-        if model_config is None:
+    def __init__(self, mod_config):
+        if mod_config is None:
             mod_config = load_model_config("config")
+
         self.config = mod_config
         self.bert_features = mod_config.BERT_FEATURES
         self.layer1_features = mod_config.LAYER1_FEATURES
