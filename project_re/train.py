@@ -44,10 +44,6 @@ def train_model(config, model,optimizer, scheduler, train_dataloader,  num_label
 
             logits = model(input_ids, segment_ids, input_mask)
 
-            weights = torch.Tensor(config.hyperparams.LOSS_FN_CLASS_WEIGHTS)
-            class_weights = torch.FloatTensor(weights)
-            loss_fct = CrossEntropyLoss(weight=class_weights)
-
 
             weights = torch.Tensor(config.hyperparams.LOSS_FN_CLASS_WEIGHTS)
             

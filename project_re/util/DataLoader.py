@@ -257,10 +257,10 @@ class MultiClassificationProcessor(DataProcessor):
             features = pickle.load(f)
 
 
-        logger.info("***** Running training *****")
         logger.info("  Num examples = %d", data_len)
         logger.info("  Batch size = %d", config.hyperparams.TRAIN_BATCH_SIZE)
         logger.info("  Num steps = %d", num_train_optimization_steps)
+        
         all_input_ids = torch.tensor([f.input_ids for f in features], dtype=torch.long)
         all_input_mask = torch.tensor([f.input_mask for f in features], dtype=torch.long)
         all_segment_ids = torch.tensor([f.segment_ids for f in features], dtype=torch.long)
