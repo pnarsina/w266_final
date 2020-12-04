@@ -34,7 +34,6 @@
 	  "KERNEL_1" : 4 , 
 	  "KERNEL_2" : 30, 
 	  "KERNEL_3" :  36,
-	  "KERNEL_SIZES" : [4,30,36],
 	  "STRIDE": 1,
 	  "OUT_SIZE" : 64,
 	  "DROP_OUT" : 0.01,
