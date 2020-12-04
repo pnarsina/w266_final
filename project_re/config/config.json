@@ -1,7 +1,7 @@
 {
 "hyperparams":
 	{"NUM_BERT_LAYERS_FREEZE": 8 , 
-	 "MAX_SEQ_LENGTH": 256 ,
+	 "MAX_SEQ_LENGTH": 128 ,
 	  "optimizer" : "AdamW",  
 	  "TRAIN_BATCH_SIZE" : 12, 
 	  "EVAL_BATCH_SIZE" : 8, 
@@ -31,17 +31,17 @@
 	{"BERT_FEATURES": 768  ,
 	  "LAYER1_FEATURES" : 256,  
 	  "LBAEL_CLASSES" : 9, 
-	  "KERNEL_1" : 2 , 
-	  "KERNEL_2" : 3, 
-	  "KERNEL_3" :  4,
+	  "KERNEL_1" : 4 , 
+	  "KERNEL_2" : 30, 
+	  "KERNEL_3" :  36,
 	  "KERNEL_SIZES" : [4,30,36],
 	  "STRIDE": 1,
 	  "OUT_SIZE" : 64,
 	  "DROP_OUT" : 0.01,
-	  "ACT_FUNCTION": "cust_softmax", 
+	  "ACT_FUNCTION": "softmax", 
 	  "VALID_ACT_FNS": "softmax, cust_softmax, lsoftmax",
 	  "CUST_SFTMX_CLASS_BETA": 0.005,
-	  "MAX_SEQ_LENGTH": 256
+	  "MAX_SEQ_LENGTH": 128
 	  }	
 
 }

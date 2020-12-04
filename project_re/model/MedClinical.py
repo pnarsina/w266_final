@@ -123,7 +123,7 @@ class Biobert_cnn_fc(nn.Module):
 #         print('In softmax function',x)
         y = x.cpu().detach().numpy()
         x = np.array([ [x1[7],x1[1],x1[2],x1[3],x1[4],x1[5],x1[6],x1[0],x1[8]] \
-                                   if ( (np.argmax(x1) == 0) and ( x1[0] - x1[7] < 0.005)) else x1 for x1 in y])
+                                   if ( (np.argmax(x1) == 0) and ( x1[0] - x1[7] < self.model_conf.cust_sftmx_class_beta)) else x1 for x1 in y])
 
         means = np.mean(x, 1, keepdims=True)[0]
         x_exp = np.exp(x-means)
